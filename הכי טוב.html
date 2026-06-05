@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift Studio | ארגז הכלים של המעצבת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   SWIFT STUDIO PORTAL — THE MASTER STYLESHEET
+   Brand: #d64c78 (pink) · #25529a (blue)
+═══════════════════════════════════════════ */
+:root {
+  --pink:       #d64c78;
+  --pink-lt:    #f37873;
+  --blue:       #25529a;
+  --blue-lt:    #4a7fd4;
+  --violet:     #8b5cf6;
+  --deep:       #04060f;
+  --deep2:      #080c1a;
+  --surface:    rgba(255,255,255,0.035);
+  --surf-h:     rgba(255,255,255,0.07);
+  --border:     rgba(255,255,255,0.08);
+  --border-h:   rgba(214,76,120,0.45);
+  --text:       #f0f4ff;
+  --text-dim:   #8899bb;
+  --grad:       linear-gradient(135deg, var(--pink-lt) 0%, var(--pink) 40%, #7b5cf6 70%, var(--blue) 100%);
+  --grad-soft:  linear-gradient(135deg, rgba(243,120,115,0.18), rgba(37,82,154,0.18));
+  --glow:       0 0 50px rgba(214,76,120,0.25), 0 0 100px rgba(37,82,154,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Rubik', sans-serif;
+  background: var(--deep);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ────── ANIMATED GRADIENT BACKGROUND ────── */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bg-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 10% 15%,  rgba(214,76,120,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 90% 85%,  rgba(37,82,154,0.22)  0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 55% 45%,  rgba(139,92,246,0.10) 0%, transparent 55%),
+    var(--deep2);
+}
+.orb { position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform; }
+.orb-1 { width:700px;height:700px; background:radial-gradient(circle,rgba(214,76,120,0.22),transparent 70%); top:-200px;right:-200px; animation:drift1 22s ease-in-out infinite; }
+.orb-2 { width:600px;height:600px; background:radial-gradient(circle,rgba(37,82,154,0.25),transparent 70%); bottom:-150px;left:-150px; animation:drift2 28s ease-in-out infinite; }
+.orb-3 { width:400px;height:400px; background:radial-gradient(circle,rgba(139,92,246,0.15),transparent 70%); top:40%;left:40%; animation:drift3 18s ease-in-out infinite; }
+@keyframes drift1 { 0%,100%{transform:translate(0,0) scale(1);} 40%{transform:translate(-80px,60px) scale(1.1);} 70%{transform:translate(40px,-40px) scale(0.9);} }
+@keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 35%{transform:translate(70px,-50px) scale(1.05);} 65%{transform:translate(-30px,30px) scale(0.95);} }
+@keyframes drift3 { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-55%,-45%) scale(1.15);} }
+
+/* ────── SCROLLABLE ACCESS SYSTEM ────── */
+#loginOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  min-height: 100vh;
+  z-index: 9999;
+  display: flex; align-items: flex-start; justify-content: center;
+  background: rgba(4, 6, 15, 0.6); 
+  backdrop-filter: blur(20px) saturate(120%);
+  transition: opacity 0.4s ease, visibility 0.4s;
+  padding: 60px 20px;
+}
+#loginOverlay.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+body.locked #mainPortal { display: none !important; }
+body.peeking #mainPortal { display: block !important; }
+
+.login-wrap { 
+  display: flex; flex-direction: column; align-items: center; 
+  gap: 24px; width: 100%; max-width: 490px; 
+  position: relative; z-index: 10000;
+  animation: appear 0.6s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes appear { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+
+.login-card-segment {
+  width: 100%;
+  background: rgba(8, 12, 26, 0.75);
+  border-radius: 24px;
+  padding: 32px 28px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
+
+.login-main-card {
+  text-align: center;
+  background: linear-gradient(180deg, rgba(12, 18, 38, 0.95) 0%, rgba(6, 9, 22, 0.98) 100%);
+  border-radius: 32px;
+  padding: 44px 32px 36px;
+}
+.login-main-card::before { 
+  content:''; position:absolute; inset:-1px; border-radius:32px; 
+  background:linear-gradient(135deg,rgba(243,120,115,0.25) 0%,rgba(214,76,120,0.1) 40%,rgba(37,82,154,0.25) 100%); 
+  z-index:-1; 
+}
+
+.l-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 68px; font-weight: 700;
+  background: linear-gradient(135deg,#f89680 0%,#d64c78 40%,#9b6ff0 70%,#4a7fd4 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1; display: block; margin-bottom: 6px;
+  filter: drop-shadow(0 0 20px rgba(214,76,120,0.3));
+}
+.l-sub { font-size:11px;letter-spacing:6px;color:var(--text-dim);font-weight:600;text-transform:uppercase;margin-bottom:36px; }
+
+.l-label { font-size:14px;color:#fff;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px; }
+.l-label .lock-icon { display:inline-flex;width:26px;height:26px;background:rgba(214,76,120,0.1);border:1px solid rgba(214,76,120,0.2);border-radius:8px;align-items:center;justify-content:center;font-size:13px; }
+.input-wrap { position:relative; margin-bottom:14px; }
+.pass-input {
+  width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;
+  padding:15px 44px;color:white;font-size:18px;letter-spacing:5px;text-align:center;
+  outline:none;font-family:'Rubik',sans-serif;transition:all 0.3s;
+}
+.pass-input::placeholder { letter-spacing:2px;font-size:13px;color:rgba(255,255,255,0.2); }
+.pass-input:focus { border-color:rgba(214,76,120,0.45);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(214,76,120,0.08); }
+.eye-btn { position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-dim);padding:4px;z-index:2; }
+.enter-btn {
+  width:100%;padding:16px;border:none;border-radius:14px;
+  background:linear-gradient(135deg,var(--pink-lt) 0%,var(--pink) 45%,var(--blue) 100%);
+  color:white;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;
+  transition:all 0.3s;
+}
+.enter-btn:hover { transform:translateY(-1px);box-shadow:0 8px 25px rgba(214,76,120,0.3); }
+.l-error { margin-top:8px;font-size:12px;font-weight:600;min-height:16px;color:#fc8585; }
+
+/* כרטיס מבצע שיווקי */
+.login-pricing-card {
+  background: linear-gradient(145deg, rgba(214, 76, 120, 0.06) 0%, rgba(8, 12, 26, 0.85) 100%);
+  border: 1px solid rgba(214, 76, 120, 0.15);
+  text-align: center;
+}
+.l-pricing-headline { font-size: 22px; font-weight: 900; background: linear-gradient(90deg, #fff 0%, #f37873 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
+.l-pricing-subhead { font-size: 14px; color: #cbd5e1; font-weight: 400; margin-bottom: 16px; line-height: 1.6; }
+.l-pricing-badge { display: inline-block; background: rgba(214, 76, 120, 0.12); border: 1px solid rgba(214, 76, 120, 0.25); color: #f37873; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 30px; margin-bottom: 16px; }
+
+.l-copy-btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; 
+  background: rgba(255,255,255,0.03); 
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; 
+  color: #fff; font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; width: 100%; justify-content: center;
+  font-family: 'Rubik', sans-serif;
+}
+.l-copy-btn:hover { background: #fff; color: #04060f; border-color: #fff; }
+
+/* כרטיס הצצה מהירה */
+.login-peek-card { text-align: center; padding: 20px; }
+.peek-action-btn {
+  width: 100%; padding: 15px 20px; 
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+  color: #cbd5e1; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.25s;
+}
+.peek-action-btn:hover {
+  background: linear-gradient(135deg, rgba(214,76,120,0.08) 0%, rgba(37,82,154,0.08) 100%);
+  border-color: rgba(214, 76, 120, 0.3); color: #fff;
+}
+
+/* רשימת תפוצה חיצונית */
+.login-newsletter-card { text-align: center; }
+.outside-join-title { font-size: 13px; font-weight: 500; color: #cbd5e1; margin-bottom: 14px; text-align: right; }
+
+/* ── BAR המציין שהאתר במצב הצצה ── */
+#peekStatusNotice {
+  position: fixed; top: 0; left: 0; right: 0; height: 50px;
+  background: linear-gradient(90deg, #d64c78, #25529a);
+  z-index: 99999; display: none; align-items: center; justify-content: space-between;
+  padding: 0 24px; font-size: 14px; font-weight: 600; color: white;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+}
+body.peeking #peekStatusNotice { display: flex; }
+.peek-return-btn {
+  background: white; color: #04060f; border: none; padding: 6px 16px;
+  border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.peek-return-btn:hover { transform: scale(1.03); background: #f0f4ff; }
+
+/* 🔒 הגבלות קשיחות למצב הצצה (PEEK MODE) כדי למנוע שימוש 🔒 */
+body.peeking .tool-card {
+  position: relative;
+  cursor: not-allowed !important;
+  pointer-events: none !important; /* מבטל לחיצות לחלוטין */
+}
+body.peeking .tool-card::overflow-blocker {
+  content: ''; position: absolute; inset: 0; z-index: 90; background: rgba(4, 6, 15, 0.4);
+}
+/* חסימת שדות קלט פנימיים במצב הצצה */
+body.peeking #mainPortal input, 
+body.peeking #mainPortal textarea, 
+body.peeking #mainPortal button {
+  pointer-events: none !important;
+  opacity: 0.4 !important;
+}
+
+/* ────── MAIN PORTAL ────── */
+#mainPortal { position:relative; z-index:1; }
+body.peeking #mainPortal { margin-top: 50px; }
+
+/* ────── HERO ────── */
+.hero { text-align:center; padding:90px 20px 50px; position:relative; }
+.hero::before { content:''; display:block; width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(214,76,120,0.4),rgba(37,82,154,0.4),transparent); position:absolute; top:0; left:0; }
+.hero-logo { font-family:'Dancing Script',cursive; font-size:110px; font-weight:700; line-height:1; margin-bottom:4px; display:inline-block; background:linear-gradient(135deg,#f89680 0%,#d64c78 35%,#9b6ff0 65%,#4a7fd4 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 30px rgba(214,76,120,0.35)); }
+.hero-badge { display:block; font-size:10px; letter-spacing:8px; color:var(--text-dim); font-weight:700; text-transform:uppercase; margin-bottom:28px; }
+.hero-headline { font-size:40px; font-weight:900; line-height:1.25; margin-bottom:14px; color:var(--text); }
+.hero-headline .g { background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:18px; color:var(--text-dim); max-width:560px; margin:0 auto 32px; line-height:1.75; font-weight:400; }
+.hero-stats { display:flex; justify-content:center; gap:40px; margin-top:36px; flex-wrap:wrap; }
+.stat { text-align:center; }
+.stat-num { font-size:34px; font-weight:900; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; line-height:1; }
+.stat-label { font-size:12px; color:var(--text-dim); font-weight:500; margin-top:4px; letter-spacing:1px; }
+
+/* ────── GRADIENT DIVIDER ────── */
+.wave-divider { width:100%; height:2px; background:linear-gradient(90deg,transparent 0%,rgba(214,76,120,0.4) 20%,rgba(139,92,246,0.5) 50%,rgba(37,82,154,0.4) 80%,transparent 100%); margin:0; position:relative; }
+.wave-divider::after { content:'✦'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--deep); padding:0 12px; color:var(--pink); font-size:14px; }
+
+/* ────── TOOLS SECTION ────── */
+.tools-section { padding:60px 44px 70px; max-width:1260px; margin:0 auto; }
+.section-header { text-align:center; margin-bottom:50px; }
+.section-eyebrow { font-size:11px; letter-spacing:5px; color:var(--pink); font-weight:700; text-transform:uppercase; display:block; margin-bottom:10px; }
+.section-title { font-size:28px; font-weight:900; color:var(--text); margin-bottom:10px; }
+.section-sub { font-size:15px; color:var(--text-dim); max-width:420px; margin:0 auto; }
+
+/* BENTO GRID */
+.tools-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.tools-grid .tool-card:nth-child(7) { grid-column:2; }
+
+/* TOOL CARD */
+.tool-card {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 26px;
+  padding:38px 34px 32px; position:relative; overflow:hidden; text-decoration:none; color:inherit; display:block;
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.3s, background 0.3s, box-shadow 0.4s;
+  backdrop-filter: blur(5px);
+}
+.tool-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%,rgba(214,76,120,0.12),transparent 70%); opacity:0; transition:opacity 0.4s; pointer-events:none; }
+.tool-card::after { content:''; position:absolute; bottom:0; left:15%; right:15%; height:1px; background:var(--grad); opacity:0; transition:opacity 0.4s; border-radius:1px; }
+
+/* אפקטים במצב פתוח בלבד */
+body.unlocked .tool-card:hover { 
+  transform: translateY(-8px) scale(1.01); border-color: rgba(214,76,120,0.45); 
+  background: rgba(255,255,255,0.05); box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(214,76,120,0.05); 
+}
+body.unlocked .tool-card:hover::before { opacity:1; } 
+body.unlocked .tool-card:hover::after { opacity:1; }
+
+/* הודעת חסימה מיוחדת במצב הצצה */
+.peek-overlay-notice {
+  display: none; position: absolute; inset: 0; background: rgba(6, 9, 22, 0.88);
+  z-index: 95; align-items: center; justify-content: center; flex-direction: column;
+  padding: 20px; text-align: center; backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+body.peeking .tool-card:hover .peek-overlay-notice {
+  display: flex; animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+.peek-overlay-notice span { font-size: 26px; margin-bottom: 8px; }
+.peek-overlay-notice p { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.peek-overlay-notice small { font-size: 12px; color: var(--pink-lt); }
+
+.card-inner { position:relative; z-index:1; }
+.card-icon-box { width:64px; height:64px; border-radius:20px; background:var(--grad-soft); border:1px solid rgba(214,76,120,0.15); display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:22px; transition:all 0.4s cubic-bezier(.16,1,.3,1); }
+body.unlocked .tool-card:hover .card-icon-box { transform: scale(1.1) rotate(-4deg); border-color: rgba(214,76,120,0.5); }
+
+.card-tag { font-size:10px; letter-spacing:3px; color:var(--pink); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px; }
+.card-title { font-size:23px; font-weight:900; color:white; margin-bottom:12px; line-height:1.2; }
+.card-desc { font-size:14px; color:var(--text-dim); line-height:1.75; margin-bottom:26px; font-weight:400; }
+.card-cta { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; font-size:13px; font-weight:700; color:rgba(240,244,255,0.85); transition:all 0.3s; }
+.cta-arrow { font-size:15px; transition:transform 0.3s; }
+
+body.unlocked .tool-card:hover .card-cta { background:var(--grad); border-color:transparent; color:white; box-shadow: 0 4px 15px rgba(214,76,120,0.3); }
+body.unlocked .tool-card:hover .cta-arrow { transform: translateX(-5px); }
+
+/* ── 🛠️ קופסת תמיכה טכנית משודרגת - בתוך הפורטל הפנימי ── */
+.portal-support-box {
+  max-width: 500px; margin: 0 auto 50px;
+  background: linear-gradient(90deg, rgba(37, 82, 154, 0.15) 0%, rgba(214, 76, 120, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06); border-right: 4px solid var(--blue-lt);
+  border-radius: 16px; display: flex; align-items: center; gap: 16px; padding: 18px 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.portal-support-icon { font-size: 22px; background: rgba(255,255,255,0.03); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+.portal-support-text { text-align: right; }
+.portal-support-text p { font-size: 13px; color: #cbd5e1; margin: 0; font-weight: 500; }
+.portal-support-text a { font-size: 14px; color: #fff; text-decoration: none; font-weight: 700; transition: color 0.2s; display: inline-block; margin-top: 2px; border-bottom: 1px dashed rgba(255,255,255,0.2); }
+.portal-support-text a:hover { color: var(--pink-lt); }
+
+/* ────── JOIN SECTION ────── */
+.join-wrap { padding:20px 44px 60px; max-width:760px; margin:0 auto; }
+.join-card {
+  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:30px;
+  padding:58px 52px 52px; text-align:center; position:relative; overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.35); backdrop-filter: blur(5px);
+}
+.join-card::before { content:''; position:absolute; top:-40%; left:50%; transform:translateX(-50%); width:80%; height:80%; background:radial-gradient(ellipse,rgba(214,76,120,0.07),transparent 60%); pointer-events:none; }
+.join-icon { font-size:42px; display:block; margin-bottom:16px; animation:bounce-gentle 3s ease-in-out infinite; }
+@keyframes bounce-gentle { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+.join-title { font-size:30px; font-weight:900; margin-bottom:14px; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.2; }
+.join-desc { font-size:15px; color:var(--text-dim); line-height:1.8; margin-bottom:34px; max-width:480px; margin-right:auto; margin-left:auto; }
+.join-perks { display:flex; justify-content:center; gap:20px; margin-bottom:34px; flex-wrap:wrap; }
+.perk { display:flex; align-items:center; gap:7px; padding:8px 16px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:30px; font-size:13px; color:var(--text-dim); font-weight:500; }
+.perk-dot { width:6px; height:6px; border-radius:50%; background:var(--grad); flex-shrink:0; }
+.join-input-row, .outside-input-row { display:flex; gap:12px; max-width:480px; margin:0 auto 14px; }
+.join-email-in, .outside-email-in { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:15px 20px; color:white; font-size:14px; font-family:'Rubik',sans-serif; outline:none; transition:all 0.3s; direction:ltr; }
+.join-email-in::placeholder, .outside-email-in::placeholder { color:rgba(255,255,255,0.25); }
+.join-email-in:focus, .outside-email-in:focus { border-color:rgba(214,76,120,0.5); box-shadow:0 0 0 3px rgba(214,76,120,0.1); background:rgba(255,255,255,0.06); }
+.join-submit-btn, .outside-submit-btn { padding:15px 28px; background:var(--grad); border:none; border-radius:14px; color:white; font-family:'Rubik',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all 0.3s; white-space:nowrap; letter-spacing:0.3px; }
+.join-submit-btn:hover, .outside-submit-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(214,76,120,0.4); }
+.join-msg, .outside-msg { font-size:13px; font-weight:600; min-height:18px; transition:all 0.3s; margin-top:8px; }
+
+/* ────── IDEA FORM SECTION ────── */
+.idea-section { max-width: 760px; margin: 0 auto; padding: 0 44px 80px; }
+.idea-card {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 30px;
+  padding: 52px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+}
+.idea-icon { font-size: 42px; display: block; margin-bottom: 16px; animation: spin-slow 12s linear infinite; }
+@keyframes spin-slow { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+.idea-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; line-height: 1.3; color: var(--text); }
+.idea-title .g { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.idea-desc { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 30px; }
+.idea-textarea {
+  width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+  padding: 18px 22px; color: white; font-size: 14px; font-family: 'Rubik', sans-serif; outline: none;
+  transition: all 0.3s; resize: vertical; min-height: 110px; margin-bottom: 16px; direction: rtl; line-height: 1.7;
+}
+.idea-textarea::placeholder { color: rgba(255,255,255,0.22); }
+.idea-textarea:focus { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 0 3px rgba(139,92,246,0.1); background: rgba(255,255,255,0.06); }
+.idea-name-row { display: flex; gap: 12px; margin-bottom: 16px; }
+.idea-input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 20px; color: white; font-size: 14px; font-family: 'Rubik', sans-serif; outline: none; transition: all 0.3s; }
+.idea-input::placeholder { color: rgba(255,255,255,0.25); }
+.idea-input:focus { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 0 3px rgba(139,92,246,0.1); background: rgba(255,255,255,0.06); }
+.idea-submit-btn { padding: 15px 36px; background: linear-gradient(135deg, var(--violet) 0%, var(--blue) 100%); border: none; border-radius: 14px; color: white; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px; }
+.idea-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139,92,246,0.4); }
+.idea-msg { font-size: 13px; font-weight: 600; min-height: 18px; transition: all 0.3s; margin-top: 12px; }
+
+/* ────── FOOTER ────── */
+footer { position:relative; z-index:1; padding:50px 20px 40px; text-align:center; border-top:1px solid rgba(255,255,255,0.06); }
+footer::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:300px; height:1px; background:var(--grad); opacity:0.4; }
+.footer-logo { font-family:'Dancing Script',cursive; font-size:48px; font-weight:700; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; margin-bottom:6px; filter:drop-shadow(0 0 16px rgba(214,76,120,0.3)); }
+.footer-tagline { font-size:11px; letter-spacing:5px; color:var(--text-dim); font-weight:600; text-transform:uppercase; margin-bottom:28px; }
+.footer-links { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
+.footer-email-link { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:30px; font-size:14px; color:var(--text-dim); text-decoration:none; transition:all 0.3s; font-weight:500; }
+.footer-email-link:hover { border-color:rgba(214,76,120,0.4); color:white; background:rgba(214,76,120,0.08); transform:translateY(-2px); box-shadow:0 6px 20px rgba(214,76,120,0.15); }
+.footer-portfolio-link { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:30px; font-size:14px; color:var(--text-dim); text-decoration:none; transition:all 0.3s; font-weight:500; }
+.footer-portfolio-link:hover { border-color:rgba(37,82,154,0.4); color:white; background:rgba(37,82,154,0.08); transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,82,154,0.15); }
+.email-dot { width:6px; height:6px; border-radius:50%; background:var(--pink); animation:pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 rgba(214,76,120,0.4);} 50%{box-shadow:0 0 0 5px rgba(214,76,120,0);} }
+.footer-copy { font-size:11px; color:rgba(255,255,255,0.15); margin-top:14px; letter-spacing:0.5px; }
+
+/* ── כפתורי מערכת איפוס וחזרה ── */
+.reset-zone { text-align: center; padding: 0 20px 40px; position: relative; z-index: 10; display: none; }
+body.unlocked .reset-zone,
+body.peeking .reset-zone { display: block; } 
+.reset-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; 
+  background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); 
+  border-radius: 12px; color: rgba(255, 255, 255, 0.4); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.25s; text-decoration: none; font-family: 'Rubik', sans-serif;
+}
+.reset-btn:hover { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.3); color: #fc8585; }
+
+/* ────── RESPONSIVE ────── */
+@media (max-width: 960px) {
+  .tools-grid { grid-template-columns: repeat(2,1fr); }
+  .tools-grid .tool-card:nth-child(7) { grid-column: auto; }
+  .hero-logo { font-size: 78px; }
+  .tools-section { padding: 50px 28px 60px; }
+  .idea-section { padding: 0 28px 60px; }
+}
+@media (max-width: 640px) {
+  .tools-grid { grid-template-columns: 1fr; }
+  .hero-logo { font-size: 62px; }
+  .hero-headline { font-size: 26px; }
+  .login-card-segment { padding: 24px 20px; }
+  .join-input-row, .outside-input-row, .idea-name-row { flex-direction: column; }
+  .join-card { padding: 44px 28px 40px; }
+  .idea-card { padding: 42px 28px 40px; }
+}
+</style>
+</head>
+<body class="locked">
+
+<div id="peekStatusNotice">
+  <span>👀 את נמצאת כרגע ב<b>מצב הצצה בלבד</b>. כדי להפעיל ולפתוח את הכלים יש להזין קוד גישה.</span>
+  <button class="peek-return-btn" onclick="lockPortalForcefully()">חזרה למסך הנעילה 🔒</button>
+</div>
+
+<div class="bg-canvas">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div id="loginOverlay">
+  <div class="login-wrap">
+    
+    <div class="login-card-segment login-main-card">
+      <span class="l-logo">Swift</span>
+      <p class="l-sub">S T U D I O &nbsp;·&nbsp; כלי מעצבת</p>
+      
+      <p class="l-label">
+        <span class="lock-icon">🔐</span>
+        הזיני קוד גישה לכניסה מלאה:
+      </p>
+      <div class="input-wrap">
+        <input
+          class="pass-input"
+          type="password"
+          id="passInput"
+          placeholder="• • • • • • • • • •"
+          autocomplete="off"
+          onkeydown="if(event.key==='Enter') doLogin()"
+        >
+        <button class="eye-btn" onclick="toggleEye()">👁</button>
+      </div>
+      <button class="enter-btn" onclick="doLogin()">✦ כניסה לסטודיו המלא ✦</button>
+      <p class="l-error" id="loginError"></p>
+    </div>
+
+    <div class="login-card-segment login-pricing-card">
+      <div class="l-pricing-headline">디ל השקה מטורף!</div>
+      <div class="l-pricing-subhead">רכישה חד פעמית — כל 7 הכלים פתוחים לכל החיים ללא הגבלת שימוש.</div>
+      <div class="l-pricing-badge">✦ לקבלת מפתח גישה מיידי פני אלי ✦</div>
+      
+      <button class="l-copy-btn" id="copyEmailBtn" onclick="copyEmailToClipboard()">
+        <span class="l-copy-icon">📋</span>
+        <span id="copyBtnText">SWIFT84529@GMAIL.COM</span>
+      </button>
+    </div>
+
+    <div class="login-card-segment login-peek-card">
+      <button class="peek-action-btn" onclick="enablePeekMode()">
+        👀 רוצה לקבל הצצה קטנה לכל הכלים מבפנים? לחצי כאן ✨
+      </button>
+    </div>
+
+    <div class="login-card-segment login-newsletter-card">
+      <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה לקבלת עדכונים על כלים חדשים:</p>
+      <form id="outsideJoinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+        <div class="outside-input-row">
+          <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required>
+          <button class="outside-submit-btn" type="submit">הירשמי</button>
+        </div>
+      </form>
+      <p class="outside-msg" id="outsideJoinMsg"></p>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="mainPortal">
+
+  <header class="hero">
+    <div class="hero-logo">Swift</div>
+    <span class="hero-badge">S &nbsp; T &nbsp; U &nbsp; D &nbsp; I &nbsp; O</span>
+    <h1 class="hero-headline">
+      ארגז הכלים של <span class="g">המעצבת</span>
+    </h1>
+    <p class="hero-sub">
+      כל הכלים שאת צריכה — במקום אחד, מוכנים לעבודה.
+      מקצועי, מהיר ומותאם בדיוק לך.
+    </p>
+    
+    <div class="portal-support-box">
+      <div class="portal-support-icon">🛠️</div>
+      <div class="portal-support-text">
+        <p>נתקלת בבעיה טכנית כלשהי? אנחנו כאן:</p>
+        <a href="mailto:SWIFT84529@GMAIL.COM">SWIFT84529@GMAIL.COM</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">7</span><span class="stat-label">כלים מובנים</span></div>
+      <div class="stat"><span class="stat-num">100%</span><span class="stat-label">בדפדפן · ללא הורדה</span></div>
+      <div class="stat"><span class="stat-num">AI</span><span class="stat-label">מבוסס בינה מלאכותית</span></div>
+    </div>
+  </header>
+
+  <div class="wave-divider"></div>
+
+  <section class="tools-section">
+    <div class="section-header">
+      <span class="section-eyebrow">✦ &nbsp; ה כ ל י ם &nbsp; ✦</span>
+      <h2 class="section-title">בחרי כלי ותתחילי לעבוד</h2>
+      <p class="section-sub">לחצי על כרטיסיה כדי לפתוח את הכלי בלשונית חדשה</p>
+    </div>
+
+    <div class="tools-grid">
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/SHIPUR/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">🔬</div>
+          <span class="card-tag">תמונות AI · שיפור</span>
+          <h3 class="card-title">שיפור תמונות</h3>
+          <p class="card-desc">
+            חדדי פרטים, הסירי רעש דיגיטלי ושפרי איכות תמונות מבינה מלאכותית בלחיצה אחת.
+            טכנולוגיית AI מתקדמת לתוצאות מקצועיות תוך שניות.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/HORADATNEFACH/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">🗜️</div>
+          <span class="card-tag">קבצים · אופטימיזציה</span>
+          <h3 class="card-title">הקטנת נפח</h3>
+          <p class="card-desc">
+            דחסי תמונות וקבצים בצורה חכמה, מבלי לפגוע באיכות הוויזואלית.
+            חסכי מקום ושמרי על התוצרים שלך חדים ומהירים לשליחה.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/CHATIMATMAIM/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">💎</div>
+          <span class="card-tag">מיתוג · הגנה</span>
+          <h3 class="card-title">חתימת מים</h3>
+          <p class="card-desc">
+            הוסיפי חתימה מקצועית לתמונות שלך בצבעים, גודל ושקיפות מותאמים.
+            העלי לוגו משלך לחתימה מיתוגית. הגני על העבודה שלך ושמרי על הזהות המיתוגית.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/TSHTUSHPANIM/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">🎭</div>
+          <span class="card-tag">פרטיות · AI</span>
+          <h3 class="card-title">טשטוש פנים</h3>
+          <p class="card-desc">
+            זיהוי אוטומטי וטשטוש פנים בתמונות בעזרת AI.
+            מושלם לשמירה על פרטיות לקוחות ולפרסום תמונות.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/KLYZEVA/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">🎨</div>
+          <span class="card-tag">עיצוב · צבעים</span>
+          <h3 class="card-title">כלי הצבעים</h3>
+          <p class="card-desc">
+            צרי, ערכי ונהלי פלטות צבעים מרהיבות לפרויקטים שלך.
+            מחולל פלטות חכם עם מצבי הרמוניה, ניגודיות ויצוא מהיר.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/MEMIR/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">⚡</div>
+          <span class="card-tag">המרה · פורמטים</span>
+          <h3 class="card-title">ממיר קבצים</h3>
+          <p class="card-desc">
+            המרות מתקדמות: PDF לתמונות, כל פורמטי התמונה (JPG, PNG, WEBP, TIFF, GIF ועוד), וכן המרת CMYK ל-RGB ולהפך — הכל בדפדפן, ללא הורדה.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+      <a class="tool-card" href="https://swift84529-boop.github.io/NIULPRUIKTIM/" target="_blank" rel="noopener">
+        <div class="peek-overlay-notice">
+          <span>🔒</span>
+          <p>הכלי נעול במצב הצצה</p>
+          <small>הזיני קוד גישה לפתיחה</small>
+        </div>
+        <div class="card-inner">
+          <div class="card-icon-box">📋</div>
+          <span class="card-tag">ניהול · CRM</span>
+          <h3 class="card-title">ניהול פרויקטים</h3>
+          <p class="card-desc">
+            הלקוח שלך שלח מלא מלל? מלא הערות? על המצגת? הפרויקט? הגרפיקה?
+            רוצה לסדר את זה לצ'קליסט מסודר ונעים לעין עם אפשרויות חלוקה מתקדמות — כלי הניהול שכל מעצבת חולמת עליו.
+          </p>
+          <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="wave-divider" style="opacity:0.5;"></div>
+
+  <div class="join-wrap">
+    <div class="join-card">
+      <span class="join-icon">✉️</span>
+      <h2 class="join-title">הצטרפי לסטודיו</h2>
+      <p class="join-desc">
+        השאירי את המייל שלך וקבלי עדכון ראשונה על כל כלי חדש,
+        שדרוג ותכונה שמצטרפת — לפני כולם.
+      </p>
+      <div class="join-perks">
+        <div class="perk"><div class="perk-dot"></div> עדכונים ראשונה</div>
+        <div class="perk"><div class="perk-dot"></div> כלים חדשים בלעדיים</div>
+        <div class="perk"><div class="perk-dot"></div> ללא ספאם</div>
+      </div>
+      <form id="joinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+        <div class="join-input-row">
+          <input
+            class="join-email-in"
+            type="email"
+            name="email"
+            id="joinEmailInput"
+            placeholder="your@email.com"
+            required
+          >
+          <input type="hidden" name="_subject" value="הרשמה חדשה לרשימה — Swift Studio">
+          <input type="hidden" name="source" value="join-section">
+          <button class="join-submit-btn" type="submit">הצטרפי ✦</button>
+        </div>
+      </form>
+      <p class="join-msg" id="joinMsg"></p>
+    </div>
+  </div>
+
+  <div class="wave-divider" style="opacity:0.5;"></div>
+
+  <div class="idea-section">
+    <div class="idea-card">
+      <span class="idea-icon">💡</span>
+      <h2 class="idea-title">יש לך כלי שאת חולמת שיקצר לך את <span class="g">העבודה?</span></h2>
+      <p class="idea-desc">כתבי לי — אני רוצה לשמוע את הרעיונות שלך ולבנות את הכלים שתמיד חיכית להם.</p>
+      <form id="ideaForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+        <input type="hidden" name="_subject" value="רעיון לכלי חדש — Swift Studio">
+        <input type="hidden" name="source" value="idea-form">
+        <div class="idea-name-row">
+          <input class="idea-input" type="text" name="name" placeholder="השם שלך (אופציונלי)">
+          <input class="idea-input" type="email" name="email" placeholder="המייל שלך (אופציונלי)">
+        </div>
+        <textarea class="idea-textarea" name="idea" placeholder="תארי את הכלי שחלמת עליו... מה הוא עושה? מה הוא פותר לך?" required></textarea>
+        <button class="idea-submit-btn" type="submit" id="ideaSubmitBtn">✦ שלחי את הרעיון</button>
+      </form>
+      <p class="idea-msg" id="ideaMsg"></p>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">Swift</span>
+    <p class="footer-tagline">S &nbsp;T&nbsp; U &nbsp;D&nbsp; I &nbsp;O &nbsp;·&nbsp; כלי עזר למעצבת</p>
+
+    <div class="footer-links">
+      <a href="mailto:SWIFT84529@GMAIL.COM" class="footer-email-link">
+        <div class="email-dot"></div>
+        SWIFT84529@GMAIL.COM
+      </a>
+      <a href="https://www.youtube.com/watch?v=zpo1tHXi6ZM&feature=youtu.be" target="_blank" rel="noopener" class="footer-portfolio-link">
+        🎬 &nbsp; תיק עבודות
+      </a>
+    </div>
+
+    <p class="footer-copy">© 2026 Swift Studio &nbsp;·&nbsp; כל הזכויות שמורות &nbsp;·&nbsp; SWIFT84529@GMAIL.COM</p>
+  </footer>
+
+  <div class="reset-zone">
+    <button class="reset-btn" onclick="lockPortalForcefully()">
+      🔄 איפוס נעילה (חזרה למסך פתיחה ודרישת קוד)
+    </button>
+  </div>
+
+</div>
+
+
+<script>
+const CORRECT = '$K7#wP9!zV2@m$';
+const SESSION_KEY = 'ss_auth_v1';
+const STORE = localStorage;
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (STORE.getItem(SESSION_KEY) === '1') {
+    unlockPortal();
+  }
+});
+
+function toggleEye() {
+  const inp = document.getElementById('passInput');
+  inp.type = (inp.type === 'password') ? 'text' : 'password';
+}
+
+function doLogin() {
+  const val = document.getElementById('passInput').value;
+  const err = document.getElementById('loginError');
+
+  if (val === CORRECT) {
+    STORE.setItem(SESSION_KEY, '1');
+    if(err) err.textContent = '';
+    unlockPortal();
+  } else {
+    if(err) err.textContent = '✗ סיסמה שגויה — נסי שוב';
+    setTimeout(() => { if(err) err.textContent = ''; }, 3000);
+  }
+}
+
+function copyEmailToClipboard() {
+  const emailText = "SWIFT84529@GMAIL.COM";
+  const btnText = document.getElementById('copyBtnText');
+  
+  navigator.clipboard.writeText(emailText).then(() => {
+    if(btnText) {
+      btnText.textContent = "הועתק! ✓";
+      btnText.style.color = "#34d399";
+      setTimeout(() => {
+        btnText.textContent = emailText;
+        btnText.style.color = "";
+      }, 2000);
+    }
+  }).catch(err => {
+    console.error('שגיאה בהעתקה: ', err);
+  });
+}
+
+function unlockPortal() {
+  document.body.className = 'unlocked';
+  const overlay = document.getElementById('loginOverlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function enablePeekMode() {
+  document.body.className = 'peeking'; 
+  const overlay = document.getElementById('loginOverlay');
+  if (overlay) overlay.style.display = 'none'; 
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function lockPortalForcefully() {
+  STORE.removeItem(SESSION_KEY);
+  document.body.className = 'locked';
+  
+  const overlay = document.getElementById('loginOverlay');
+  if (overlay) overlay.style.display = 'flex';
+  
+  const inp = document.getElementById('passInput');
+  if(inp) inp.value = '';
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* טופס רשימת תפוצה - פנימי */
+document.getElementById('joinForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const msg = document.getElementById('joinMsg');
+  const btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'שולחת...';
+  try {
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (resp.ok) {
+      msg.style.color = '#34d399'; msg.textContent = '🎉 נהדר! נוספת לרשימה בהצלחה — ניפגש בתיבת הדואר!';
+      this.reset();
+      setTimeout(() => { msg.textContent = ''; }, 5000);
+    } else { throw new Error('server'); }
+  } catch {
+    msg.style.color = '#fc8585'; msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    setTimeout(() => { msg.textContent = ''; }, 4000);
+  }
+  btn.disabled = false; btn.textContent = 'הצטרפי ✦';
+});
+
+/* טופס רשימת תפוצה - חיצוני */
+document.getElementById('outsideJoinForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const msg = document.getElementById('outsideJoinMsg');
+  const btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true; btn.textContent = 'שולחת...';
+  try {
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (resp.ok) {
+      msg.style.color = '#34d399'; msg.textContent = '🎉 נרשמת בהצלחה!';
+      this.reset();
+      setTimeout(() => { msg.textContent = ''; }, 5000);
+    } else { throw new Error('server'); }
+  } catch {
+    msg.style.color = '#fc8585'; msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    setTimeout(() => { msg.textContent = ''; }, 4000);
+  }
+  btn.disabled = false; btn.textContent = 'הירשמי';
+});
+
+/* טופס שליחת רעיונות */
+document.getElementById('ideaForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const msg = document.getElementById('ideaMsg');
+  const btn = document.getElementById('ideaSubmitBtn');
+  btn.disabled = true; btn.textContent = 'שולחת...';
+  try {
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (resp.ok) {
+      msg.style.color = '#34d399';
+      msg.textContent = '🌟 קיבלתי! תודה על הרעיון — אני כבר חושבת עליו 💫';
+      this.reset();
+      setTimeout(() => { msg.textContent = ''; }, 5000);
+    } else { throw new Error('server'); }
+  } catch {
+    msg.style.color = '#fc8585';
+    msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    setTimeout(() => { msg.textContent = ''; }, 4000);
+  }
+  btn.disabled = false; btn.textContent = '✦ שלחי את הרעיון';
+});
+</script>
+</body>
+</html>
