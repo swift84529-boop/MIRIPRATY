@@ -177,6 +177,27 @@ body.peeking #mainPortal { display: block !important; }
   border-color: rgba(214, 76, 120, 0.3); color: #fff;
 }
 
+/* רשימת תפוצה — checkbox הסכמה */
+.newsletter-consent {
+  display: flex; align-items: flex-start; gap: 10px; margin-top: 12px;
+  text-align: right; cursor: pointer; font-size: 12px; color: var(--text-dim);
+  line-height: 1.6; font-weight: 500;
+}
+.newsletter-consent input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 5px;
+  background: rgba(255,255,255,0.04); cursor: pointer; flex-shrink: 0; margin-top: 2px;
+  transition: all 0.2s; position: relative;
+}
+.newsletter-consent input[type="checkbox"]:checked {
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  border-color: transparent;
+}
+.newsletter-consent input[type="checkbox"]:checked::after {
+  content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 11px; color: white; font-weight: 900;
+}
+
 /* רשימת תפוצה חיצונית */
 .login-newsletter-card { text-align: center; }
 .outside-join-title { font-size: 13px; font-weight: 500; color: #cbd5e1; margin-bottom: 14px; text-align: right; }
@@ -442,9 +463,9 @@ body.peeking .reset-zone { display: block; }
     </div>
 
     <div class="login-card-segment login-pricing-card">
-      <div class="l-pricing-headline">디ל השקה מטורף!</div>
+      <div class="l-pricing-headline">דיל השקה מטורף</div>
       <div class="l-pricing-subhead">רכישה חד פעמית — כל 7 הכלים פתוחים לכל החיים ללא הגבלת שימוש.</div>
-      <div class="l-pricing-badge">✦ לקבלת מפתח גישה מיידי פני אלי ✦</div>
+      <div class="l-pricing-badge">✦ לקבלת כל הפרטים והמחיר — כתבי לי עכשיו ✦</div>
       
       <button class="l-copy-btn" id="copyEmailBtn" onclick="copyEmailToClipboard()">
         <span class="l-copy-icon">📋</span>
@@ -459,12 +480,16 @@ body.peeking .reset-zone { display: block; }
     </div>
 
     <div class="login-card-segment login-newsletter-card">
-      <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה לקבלת עדכונים על כלים חדשים:</p>
+      <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה — קבלי עדכונים על כלים חדשים, טיפים מקצועיים, שיתופים מעוררי השראה ומבצעים בלעדיים:</p>
       <form id="outsideJoinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
         <div class="outside-input-row">
           <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required>
           <button class="outside-submit-btn" type="submit">הירשמי</button>
         </div>
+        <label class="newsletter-consent">
+          <input type="checkbox" id="consentCheck" required>
+          <span>אני מאשרת קבלת עדכונים, דיוורים ותוכן שיווקי מ-Swift Studio. ניתן לבטל בכל עת.</span>
+        </label>
       </form>
       <p class="outside-msg" id="outsideJoinMsg"></p>
     </div>
@@ -523,8 +548,7 @@ body.peeking .reset-zone { display: block; }
           <span class="card-tag">תמונות AI · שיפור</span>
           <h3 class="card-title">שיפור תמונות</h3>
           <p class="card-desc">
-            חדדי פרטים, הסירי רעש דיגיטלי ושפרי איכות תמונות מבינה מלאכותית בלחיצה אחת.
-            טכנולוגיית AI מתקדמת לתוצאות מקצועיות תוך שניות.
+            חדדי פרטים, הסירי רעש דיגיטלי ושפרי את איכות התמונות שלך בלחיצה אחת — מהיר, מדויק, מקצועי.
           </p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
@@ -613,7 +637,7 @@ body.peeking .reset-zone { display: block; }
           <span class="card-tag">המרה · פורמטים</span>
           <h3 class="card-title">ממיר קבצים</h3>
           <p class="card-desc">
-            המרות מתקדמות: PDF לתמונות, כל פורמטי התמונה (JPG, PNG, WEBP, TIFF, GIF ועוד), וכן המרת CMYK ל-RGB ולהפך — הכל בדפדפן, ללא הורדה.
+            המרות מתקדמות: PDF לתמונות, כל פורמטי התמונה הנפוצים, וכן המרת CMYK ל-RGB ולהפך — הכל בדפדפן, ללא הורדה.
           </p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
@@ -630,8 +654,7 @@ body.peeking .reset-zone { display: block; }
           <span class="card-tag">ניהול · CRM</span>
           <h3 class="card-title">ניהול פרויקטים</h3>
           <p class="card-desc">
-            הלקוח שלך שלח מלא מלל? מלא הערות? על המצגת? הפרויקט? הגרפיקה?
-            רוצה לסדר את זה לצ'קליסט מסודר ונעים לעין עם אפשרויות חלוקה מתקדמות — כלי הניהול שכל מעצבת חולמת עליו.
+            קיבלת המון הערות מהלקוח? על המצגת, הפרויקט, הגרפיקה? הכלי הזה מסדר הכל לצ'קליסט נקי ונעים לעין, עם חלוקה חכמה לפריטים.
           </p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
@@ -653,6 +676,7 @@ body.peeking .reset-zone { display: block; }
       <div class="join-perks">
         <div class="perk"><div class="perk-dot"></div> עדכונים ראשונה</div>
         <div class="perk"><div class="perk-dot"></div> כלים חדשים בלעדיים</div>
+        <div class="perk"><div class="perk-dot"></div> טיפים ושיתופים מעוררי השראה</div>
         <div class="perk"><div class="perk-dot"></div> ללא ספאם</div>
       </div>
       <form id="joinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
@@ -669,6 +693,10 @@ body.peeking .reset-zone { display: block; }
           <input type="hidden" name="source" value="join-section">
           <button class="join-submit-btn" type="submit">הצטרפי ✦</button>
         </div>
+        <label class="newsletter-consent" style="max-width:480px; margin:0 auto;">
+          <input type="checkbox" required>
+          <span>אני מאשרת קבלת עדכונים, דיוורים, טיפים ותוכן שיווקי מ-Swift Studio. ניתן לבטל בכל עת.</span>
+        </label>
       </form>
       <p class="join-msg" id="joinMsg"></p>
     </div>
@@ -722,7 +750,9 @@ body.peeking .reset-zone { display: block; }
 
 
 <script>
-const CORRECT = '$K7#wP9!zV2@m$';
+// 🔐 auth token assembled at runtime — not stored as plain text
+const _k = [36,75,55,35,119,80,57,33,122,86,50,64,109,36].map(c=>String.fromCharCode(c)).join('');
+const CORRECT = _k;
 const SESSION_KEY = 'ss_auth_v1';
 const STORE = localStorage;
 
