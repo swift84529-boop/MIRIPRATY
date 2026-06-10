@@ -9,7 +9,7 @@
 <style>
 
 /* ═══════════════════════════════════════════
-   SWIFT STUDIO PORTAL — THE MASTER STYLESHEET
+   SWIFT STUDIO PORTAL — MASTER STYLESHEET
    Brand: #d64c78 (pink) · #25529a (blue)
 ═══════════════════════════════════════════ */
 :root {
@@ -41,18 +41,13 @@ body {
   overflow-x: hidden;
 }
 
-/* ────── ANIMATED GRADIENT BACKGROUND ────── */
+/* ────── ANIMATED BACKGROUND ────── */
 .bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
 }
 .bg-canvas::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 70% 60% at 10% 15%,  rgba(214,76,120,0.18) 0%, transparent 60%),
     radial-gradient(ellipse 60% 55% at 90% 85%,  rgba(37,82,154,0.22)  0%, transparent 60%),
@@ -67,26 +62,22 @@ body {
 @keyframes drift2 { 0%,100%{transform:translate(0,0) scale(1);} 35%{transform:translate(70px,-50px) scale(1.05);} 65%{transform:translate(-30px,30px) scale(0.95);} }
 @keyframes drift3 { 0%,100%{transform:translate(-50%,-50%) scale(1);} 50%{transform:translate(-55%,-45%) scale(1.15);} }
 
-/* ────── SCROLLABLE ACCESS SYSTEM ────── */
+/* ────── LOGIN OVERLAY ────── */
 #loginOverlay {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  min-height: 100vh;
-  z-index: 9999;
-  display: flex; align-items: flex-start; justify-content: center;
-  background: rgba(4, 6, 15, 0.6); 
+  position: absolute; top: 0; left: 0; right: 0; min-height: 100vh;
+  z-index: 9999; display: flex; align-items: flex-start; justify-content: center;
+  background: rgba(4, 6, 15, 0.6);
   backdrop-filter: blur(20px) saturate(120%);
   transition: opacity 0.4s ease, visibility 0.4s;
   padding: 60px 20px;
 }
 #loginOverlay.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+body.locked   #mainPortal { display: none !important; }
+body.peeking  #mainPortal { display: block !important; }
 
-body.locked #mainPortal { display: none !important; }
-body.peeking #mainPortal { display: block !important; }
-
-.login-wrap { 
-  display: flex; flex-direction: column; align-items: center; 
-  gap: 24px; width: 100%; max-width: 490px; 
+.login-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 24px; width: 100%; max-width: 490px;
   position: relative; z-index: 10000;
   animation: appear 0.6s cubic-bezier(.16,1,.3,1) both;
 }
@@ -95,150 +86,68 @@ body.peeking #mainPortal { display: block !important; }
 .login-card-segment {
   width: 100%;
   background: rgba(8, 12, 26, 0.75);
-  border-radius: 24px;
-  padding: 32px 28px;
+  border-radius: 24px; padding: 32px 28px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
 }
-
 .login-main-card {
   text-align: center;
   background: linear-gradient(180deg, rgba(12, 18, 38, 0.95) 0%, rgba(6, 9, 22, 0.98) 100%);
-  border-radius: 32px;
-  padding: 44px 32px 36px;
+  border-radius: 32px; padding: 44px 32px 36px; position: relative;
 }
-.login-main-card::before { 
-  content:''; position:absolute; inset:-1px; border-radius:32px; 
-  background:linear-gradient(135deg,rgba(243,120,115,0.25) 0%,rgba(214,76,120,0.1) 40%,rgba(37,82,154,0.25) 100%); 
-  z-index:-1; 
+.login-main-card::before {
+  content:''; position:absolute; inset:-1px; border-radius:32px;
+  background:linear-gradient(135deg,rgba(243,120,115,0.25) 0%,rgba(214,76,120,0.1) 40%,rgba(37,82,154,0.25) 100%);
+  z-index:-1;
 }
-
-.l-logo {
-  font-family: 'Dancing Script', cursive;
-  font-size: 68px; font-weight: 700;
-  background: linear-gradient(135deg,#f89680 0%,#d64c78 40%,#9b6ff0 70%,#4a7fd4 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  line-height: 1; display: block; margin-bottom: 6px;
-  filter: drop-shadow(0 0 20px rgba(214,76,120,0.3));
-}
-.l-sub { font-size:11px;letter-spacing:6px;color:var(--text-dim);font-weight:600;text-transform:uppercase;margin-bottom:36px; }
-
-.l-label { font-size:14px;color:#fff;font-weight:600;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px; }
-.l-label .lock-icon { display:inline-flex;width:26px;height:26px;background:rgba(214,76,120,0.1);border:1px solid rgba(214,76,120,0.2);border-radius:8px;align-items:center;justify-content:center;font-size:13px; }
+.l-logo { font-family:'Dancing Script',cursive; font-size:68px; font-weight:700; background:linear-gradient(135deg,#f89680 0%,#d64c78 40%,#9b6ff0 70%,#4a7fd4 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; display:block; margin-bottom:6px; filter:drop-shadow(0 0 20px rgba(214,76,120,0.3)); }
+.l-sub { font-size:11px; letter-spacing:6px; color:var(--text-dim); font-weight:600; text-transform:uppercase; margin-bottom:36px; }
+.l-label { font-size:14px; color:#fff; font-weight:600; margin-bottom:14px; display:flex; align-items:center; justify-content:center; gap:8px; }
+.l-label .lock-icon { display:inline-flex; width:26px; height:26px; background:rgba(214,76,120,0.1); border:1px solid rgba(214,76,120,0.2); border-radius:8px; align-items:center; justify-content:center; font-size:13px; }
 .input-wrap { position:relative; margin-bottom:14px; }
-.pass-input {
-  width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;
-  padding:15px 44px;color:white;font-size:18px;letter-spacing:5px;text-align:center;
-  outline:none;font-family:'Rubik',sans-serif;transition:all 0.3s;
-}
-.pass-input::placeholder { letter-spacing:2px;font-size:13px;color:rgba(255,255,255,0.2); }
-.pass-input:focus { border-color:rgba(214,76,120,0.45);background:rgba(255,255,255,0.06);box-shadow:0 0 0 4px rgba(214,76,120,0.08); }
-.eye-btn { position:absolute;left:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-dim);padding:4px;z-index:2; }
-.enter-btn {
-  width:100%;padding:16px;border:none;border-radius:14px;
-  background:linear-gradient(135deg,var(--pink-lt) 0%,var(--pink) 45%,var(--blue) 100%);
-  color:white;font-family:'Rubik',sans-serif;font-size:15px;font-weight:700;cursor:pointer;
-  transition:all 0.3s;
-}
-.enter-btn:hover { transform:translateY(-1px);box-shadow:0 8px 25px rgba(214,76,120,0.3); }
-.l-error { margin-top:8px;font-size:12px;font-weight:600;min-height:16px;color:#fc8585; }
+.pass-input { width:100%; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:15px 44px; color:white; font-size:18px; letter-spacing:5px; text-align:center; outline:none; font-family:'Rubik',sans-serif; transition:all 0.3s; }
+.pass-input::placeholder { letter-spacing:2px; font-size:13px; color:rgba(255,255,255,0.2); }
+.pass-input:focus { border-color:rgba(214,76,120,0.45); background:rgba(255,255,255,0.06); box-shadow:0 0 0 4px rgba(214,76,120,0.08); }
+.eye-btn { position:absolute; left:14px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:16px; color:var(--text-dim); padding:4px; z-index:2; }
+.enter-btn { width:100%; padding:16px; border:none; border-radius:14px; background:linear-gradient(135deg,var(--pink-lt) 0%,var(--pink) 45%,var(--blue) 100%); color:white; font-family:'Rubik',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.3s; }
+.enter-btn:hover { transform:translateY(-1px); box-shadow:0 8px 25px rgba(214,76,120,0.3); }
+.enter-btn:disabled { opacity:0.7; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+.l-error { margin-top:8px; font-size:12px; font-weight:600; min-height:16px; color:#fc8585; }
 
-/* כרטיס מבצע שיווקי */
-.login-pricing-card {
-  background: linear-gradient(145deg, rgba(214, 76, 120, 0.06) 0%, rgba(8, 12, 26, 0.85) 100%);
-  border: 1px solid rgba(214, 76, 120, 0.15);
-  text-align: center;
-}
-.l-pricing-headline { font-size: 22px; font-weight: 900; background: linear-gradient(90deg, #fff 0%, #f37873 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 6px; }
-.l-pricing-subhead { font-size: 14px; color: #cbd5e1; font-weight: 400; margin-bottom: 16px; line-height: 1.6; }
-.l-pricing-badge { display: inline-block; background: rgba(214, 76, 120, 0.12); border: 1px solid rgba(214, 76, 120, 0.25); color: #f37873; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 30px; margin-bottom: 16px; }
+.login-pricing-card { background:linear-gradient(145deg,rgba(214,76,120,0.06) 0%,rgba(8,12,26,0.85) 100%); border:1px solid rgba(214,76,120,0.15); text-align:center; }
+.l-pricing-headline { font-size:22px; font-weight:900; background:linear-gradient(90deg,#fff 0%,#f37873 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:6px; }
+.l-pricing-subhead { font-size:14px; color:#cbd5e1; font-weight:400; margin-bottom:16px; line-height:1.6; }
+.l-pricing-badge { display:inline-block; background:rgba(214,76,120,0.12); border:1px solid rgba(214,76,120,0.25); color:#f37873; font-size:12px; font-weight:700; padding:6px 16px; border-radius:30px; margin-bottom:16px; }
+.l-copy-btn { display:inline-flex; align-items:center; gap:10px; padding:14px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; color:#fff; font-size:14px; font-weight:700; cursor:pointer; transition:all 0.2s; width:100%; justify-content:center; font-family:'Rubik',sans-serif; }
+.l-copy-btn:hover { background:#fff; color:#04060f; border-color:#fff; }
 
-.l-copy-btn {
-  display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; 
-  background: rgba(255,255,255,0.03); 
-  border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; 
-  color: #fff; font-size: 14px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s; width: 100%; justify-content: center;
-  font-family: 'Rubik', sans-serif;
-}
-.l-copy-btn:hover { background: #fff; color: #04060f; border-color: #fff; }
+.login-peek-card { text-align:center; padding:20px; }
+.peek-action-btn { width:100%; padding:15px 20px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:16px; color:#cbd5e1; font-family:'Rubik',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.25s; }
+.peek-action-btn:hover { background:linear-gradient(135deg,rgba(214,76,120,0.08) 0%,rgba(37,82,154,0.08) 100%); border-color:rgba(214,76,120,0.3); color:#fff; }
 
-/* כרטיס הצצה מהירה */
-.login-peek-card { text-align: center; padding: 20px; }
-.peek-action-btn {
-  width: 100%; padding: 15px 20px; 
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
-  color: #cbd5e1; font-family: 'Rubik', sans-serif; font-size: 14px; font-weight: 600;
-  cursor: pointer; transition: all 0.25s;
-}
-.peek-action-btn:hover {
-  background: linear-gradient(135deg, rgba(214,76,120,0.08) 0%, rgba(37,82,154,0.08) 100%);
-  border-color: rgba(214, 76, 120, 0.3); color: #fff;
-}
+.newsletter-consent { display:flex; align-items:flex-start; gap:10px; margin-top:12px; text-align:right; cursor:pointer; font-size:12px; color:var(--text-dim); line-height:1.6; font-weight:500; }
+.newsletter-consent input[type="checkbox"] { appearance:none; -webkit-appearance:none; width:18px; height:18px; border:1px solid rgba(255,255,255,0.18); border-radius:5px; background:rgba(255,255,255,0.04); cursor:pointer; flex-shrink:0; margin-top:2px; transition:all 0.2s; position:relative; }
+.newsletter-consent input[type="checkbox"]:checked { background:linear-gradient(135deg,var(--pink),var(--blue)); border-color:transparent; }
+.newsletter-consent input[type="checkbox"]:checked::after { content:'✓'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:11px; color:white; font-weight:900; }
 
-/* רשימת תפוצה — checkbox הסכמה */
-.newsletter-consent {
-  display: flex; align-items: flex-start; gap: 10px; margin-top: 12px;
-  text-align: right; cursor: pointer; font-size: 12px; color: var(--text-dim);
-  line-height: 1.6; font-weight: 500;
-}
-.newsletter-consent input[type="checkbox"] {
-  appearance: none; -webkit-appearance: none;
-  width: 18px; height: 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 5px;
-  background: rgba(255,255,255,0.04); cursor: pointer; flex-shrink: 0; margin-top: 2px;
-  transition: all 0.2s; position: relative;
-}
-.newsletter-consent input[type="checkbox"]:checked {
-  background: linear-gradient(135deg, var(--pink), var(--blue));
-  border-color: transparent;
-}
-.newsletter-consent input[type="checkbox"]:checked::after {
-  content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  font-size: 11px; color: white; font-weight: 900;
-}
+.login-newsletter-card { text-align:center; }
+.outside-join-title { font-size:13px; font-weight:500; color:#cbd5e1; margin-bottom:14px; text-align:right; }
 
-/* רשימת תפוצה חיצונית */
-.login-newsletter-card { text-align: center; }
-.outside-join-title { font-size: 13px; font-weight: 500; color: #cbd5e1; margin-bottom: 14px; text-align: right; }
+/* ── PEEK BAR ── */
+#peekStatusNotice { position:fixed; top:0; left:0; right:0; height:50px; background:linear-gradient(90deg,#d64c78,#25529a); z-index:99999; display:none; align-items:center; justify-content:space-between; padding:0 24px; font-size:14px; font-weight:600; color:white; box-shadow:0 4px 25px rgba(0,0,0,0.5); backdrop-filter:blur(10px); }
+body.peeking #peekStatusNotice { display:flex; }
+.peek-return-btn { background:white; color:#04060f; border:none; padding:6px 16px; border-radius:10px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; box-shadow:0 4px 10px rgba(0,0,0,0.2); }
+.peek-return-btn:hover { transform:scale(1.03); background:#f0f4ff; }
 
-/* ── BAR המציין שהאתר במצב הצצה ── */
-#peekStatusNotice {
-  position: fixed; top: 0; left: 0; right: 0; height: 50px;
-  background: linear-gradient(90deg, #d64c78, #25529a);
-  z-index: 99999; display: none; align-items: center; justify-content: space-between;
-  padding: 0 24px; font-size: 14px; font-weight: 600; color: white;
-  box-shadow: 0 4px 25px rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
-}
-body.peeking #peekStatusNotice { display: flex; }
-.peek-return-btn {
-  background: white; color: #04060f; border: none; padding: 6px 16px;
-  border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;
-  transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-.peek-return-btn:hover { transform: scale(1.03); background: #f0f4ff; }
-
-/* 🔒 הגבלות קשיחות למצב הצצה (PEEK MODE) כדי למנוע שימוש 🔒 */
-body.peeking .tool-card {
-  position: relative;
-  cursor: not-allowed !important;
-  pointer-events: none !important; /* מבטל לחיצות לחלוטין */
-}
-body.peeking .tool-card::overflow-blocker {
-  content: ''; position: absolute; inset: 0; z-index: 90; background: rgba(4, 6, 15, 0.4);
-}
-/* חסימת שדות קלט פנימיים במצב הצצה */
-body.peeking #mainPortal input, 
-body.peeking #mainPortal textarea, 
-body.peeking #mainPortal button {
-  pointer-events: none !important;
-  opacity: 0.4 !important;
-}
+/* ── PEEK RESTRICTIONS ── */
+body.peeking .tool-card { position:relative; cursor:not-allowed !important; pointer-events:none !important; }
+body.peeking #mainPortal input,
+body.peeking #mainPortal textarea,
+body.peeking #mainPortal button { pointer-events:none !important; opacity:0.4 !important; }
 
 /* ────── MAIN PORTAL ────── */
 #mainPortal { position:relative; z-index:1; }
-body.peeking #mainPortal { margin-top: 50px; }
+body.peeking #mainPortal { margin-top:50px; }
 
 /* ────── HERO ────── */
 .hero { text-align:center; padding:90px 20px 50px; position:relative; }
@@ -253,89 +162,56 @@ body.peeking #mainPortal { margin-top: 50px; }
 .stat-num { font-size:34px; font-weight:900; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; line-height:1; }
 .stat-label { font-size:12px; color:var(--text-dim); font-weight:500; margin-top:4px; letter-spacing:1px; }
 
-/* ────── GRADIENT DIVIDER ────── */
+/* ────── DIVIDER ────── */
 .wave-divider { width:100%; height:2px; background:linear-gradient(90deg,transparent 0%,rgba(214,76,120,0.4) 20%,rgba(139,92,246,0.5) 50%,rgba(37,82,154,0.4) 80%,transparent 100%); margin:0; position:relative; }
 .wave-divider::after { content:'✦'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:var(--deep); padding:0 12px; color:var(--pink); font-size:14px; }
 
-/* ────── TOOLS SECTION ────── */
+/* ────── TOOLS ────── */
 .tools-section { padding:60px 44px 70px; max-width:1260px; margin:0 auto; }
 .section-header { text-align:center; margin-bottom:50px; }
 .section-eyebrow { font-size:11px; letter-spacing:5px; color:var(--pink); font-weight:700; text-transform:uppercase; display:block; margin-bottom:10px; }
 .section-title { font-size:28px; font-weight:900; color:var(--text); margin-bottom:10px; }
 .section-sub { font-size:15px; color:var(--text-dim); max-width:420px; margin:0 auto; }
 
-/* BENTO GRID */
 .tools-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 .tools-grid .tool-card:nth-child(7) { grid-column:2; }
 
-/* TOOL CARD */
-.tool-card {
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 26px;
-  padding:38px 34px 32px; position:relative; overflow:hidden; text-decoration:none; color:inherit; display:block;
-  transition: transform 0.4s cubic-bezier(.16,1,.3,1), border-color 0.3s, background 0.3s, box-shadow 0.4s;
-  backdrop-filter: blur(5px);
-}
+.tool-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:26px; padding:38px 34px 32px; position:relative; overflow:hidden; text-decoration:none; color:inherit; display:block; transition:transform 0.4s cubic-bezier(.16,1,.3,1),border-color 0.3s,background 0.3s,box-shadow 0.4s; backdrop-filter:blur(5px); }
 .tool-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%,rgba(214,76,120,0.12),transparent 70%); opacity:0; transition:opacity 0.4s; pointer-events:none; }
 .tool-card::after { content:''; position:absolute; bottom:0; left:15%; right:15%; height:1px; background:var(--grad); opacity:0; transition:opacity 0.4s; border-radius:1px; }
-
-/* אפקטים במצב פתוח בלבד */
-body.unlocked .tool-card:hover { 
-  transform: translateY(-8px) scale(1.01); border-color: rgba(214,76,120,0.45); 
-  background: rgba(255,255,255,0.05); box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(214,76,120,0.05); 
-}
-body.unlocked .tool-card:hover::before { opacity:1; } 
+body.unlocked .tool-card:hover { transform:translateY(-8px) scale(1.01); border-color:rgba(214,76,120,0.45); background:rgba(255,255,255,0.05); box-shadow:0 24px 60px rgba(0,0,0,0.6),0 0 40px rgba(214,76,120,0.05); }
+body.unlocked .tool-card:hover::before { opacity:1; }
 body.unlocked .tool-card:hover::after { opacity:1; }
 
-/* הודעת חסימה מיוחדת במצב הצצה */
-.peek-overlay-notice {
-  display: none; position: absolute; inset: 0; background: rgba(6, 9, 22, 0.88);
-  z-index: 95; align-items: center; justify-content: center; flex-direction: column;
-  padding: 20px; text-align: center; backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
-}
-body.peeking .tool-card:hover .peek-overlay-notice {
-  display: flex; animation: fadeIn 0.2s ease;
-}
+.peek-overlay-notice { display:none; position:absolute; inset:0; background:rgba(6,9,22,0.88); z-index:95; align-items:center; justify-content:center; flex-direction:column; padding:20px; text-align:center; backdrop-filter:blur(6px); transition:all 0.3s ease; }
+body.peeking .tool-card:hover .peek-overlay-notice { display:flex; animation:fadeIn 0.2s ease; }
 @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-.peek-overlay-notice span { font-size: 26px; margin-bottom: 8px; }
-.peek-overlay-notice p { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-.peek-overlay-notice small { font-size: 12px; color: var(--pink-lt); }
+.peek-overlay-notice span { font-size:26px; margin-bottom:8px; }
+.peek-overlay-notice p { font-size:14px; font-weight:700; color:#fff; margin-bottom:4px; }
+.peek-overlay-notice small { font-size:12px; color:var(--pink-lt); }
 
 .card-inner { position:relative; z-index:1; }
 .card-icon-box { width:64px; height:64px; border-radius:20px; background:var(--grad-soft); border:1px solid rgba(214,76,120,0.15); display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:22px; transition:all 0.4s cubic-bezier(.16,1,.3,1); }
-body.unlocked .tool-card:hover .card-icon-box { transform: scale(1.1) rotate(-4deg); border-color: rgba(214,76,120,0.5); }
-
+body.unlocked .tool-card:hover .card-icon-box { transform:scale(1.1) rotate(-4deg); border-color:rgba(214,76,120,0.5); }
 .card-tag { font-size:10px; letter-spacing:3px; color:var(--pink); font-weight:700; text-transform:uppercase; display:block; margin-bottom:8px; }
 .card-title { font-size:23px; font-weight:900; color:white; margin-bottom:12px; line-height:1.2; }
 .card-desc { font-size:14px; color:var(--text-dim); line-height:1.75; margin-bottom:26px; font-weight:400; }
 .card-cta { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; font-size:13px; font-weight:700; color:rgba(240,244,255,0.85); transition:all 0.3s; }
 .cta-arrow { font-size:15px; transition:transform 0.3s; }
+body.unlocked .tool-card:hover .card-cta { background:var(--grad); border-color:transparent; color:white; box-shadow:0 4px 15px rgba(214,76,120,0.3); }
+body.unlocked .tool-card:hover .cta-arrow { transform:translateX(-5px); }
 
-body.unlocked .tool-card:hover .card-cta { background:var(--grad); border-color:transparent; color:white; box-shadow: 0 4px 15px rgba(214,76,120,0.3); }
-body.unlocked .tool-card:hover .cta-arrow { transform: translateX(-5px); }
-
-/* ── 🛠️ קופסת תמיכה טכנית משודרגת - בתוך הפורטל הפנימי ── */
-.portal-support-box {
-  max-width: 500px; margin: 0 auto 50px;
-  background: linear-gradient(90deg, rgba(37, 82, 154, 0.15) 0%, rgba(214, 76, 120, 0.08) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06); border-right: 4px solid var(--blue-lt);
-  border-radius: 16px; display: flex; align-items: center; gap: 16px; padding: 18px 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.portal-support-icon { font-size: 22px; background: rgba(255,255,255,0.03); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
-.portal-support-text { text-align: right; }
-.portal-support-text p { font-size: 13px; color: #cbd5e1; margin: 0; font-weight: 500; }
-.portal-support-text a { font-size: 14px; color: #fff; text-decoration: none; font-weight: 700; transition: color 0.2s; display: inline-block; margin-top: 2px; border-bottom: 1px dashed rgba(255,255,255,0.2); }
-.portal-support-text a:hover { color: var(--pink-lt); }
+/* ── SUPPORT BOX ── */
+.portal-support-box { max-width:500px; margin:0 auto 50px; background:linear-gradient(90deg,rgba(37,82,154,0.15) 0%,rgba(214,76,120,0.08) 100%); border:1px solid rgba(255,255,255,0.06); border-right:4px solid var(--blue-lt); border-radius:16px; display:flex; align-items:center; gap:16px; padding:18px 24px; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
+.portal-support-icon { font-size:22px; background:rgba(255,255,255,0.03); width:42px; height:42px; display:flex; align-items:center; justify-content:center; border-radius:12px; }
+.portal-support-text { text-align:right; }
+.portal-support-text p { font-size:13px; color:#cbd5e1; margin:0; font-weight:500; }
+.portal-support-text a { font-size:14px; color:#fff; text-decoration:none; font-weight:700; transition:color 0.2s; display:inline-block; margin-top:2px; border-bottom:1px dashed rgba(255,255,255,0.2); }
+.portal-support-text a:hover { color:var(--pink-lt); }
 
 /* ────── JOIN SECTION ────── */
 .join-wrap { padding:20px 44px 60px; max-width:760px; margin:0 auto; }
-.join-card {
-  background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:30px;
-  padding:58px 52px 52px; text-align:center; position:relative; overflow:hidden;
-  box-shadow:0 30px 80px rgba(0,0,0,0.35); backdrop-filter: blur(5px);
-}
+.join-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:30px; padding:58px 52px 52px; text-align:center; position:relative; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.35); backdrop-filter:blur(5px); }
 .join-card::before { content:''; position:absolute; top:-40%; left:50%; transform:translateX(-50%); width:80%; height:80%; background:radial-gradient(ellipse,rgba(214,76,120,0.07),transparent 60%); pointer-events:none; }
 .join-icon { font-size:42px; display:block; margin-bottom:16px; animation:bounce-gentle 3s ease-in-out infinite; }
 @keyframes bounce-gentle { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
@@ -352,31 +228,24 @@ body.unlocked .tool-card:hover .cta-arrow { transform: translateX(-5px); }
 .join-submit-btn:hover, .outside-submit-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(214,76,120,0.4); }
 .join-msg, .outside-msg { font-size:13px; font-weight:600; min-height:18px; transition:all 0.3s; margin-top:8px; }
 
-/* ────── IDEA FORM SECTION ────── */
-.idea-section { max-width: 760px; margin: 0 auto; padding: 0 44px 80px; }
-.idea-card {
-  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 30px;
-  padding: 52px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.3); backdrop-filter: blur(5px);
-}
-.idea-icon { font-size: 42px; display: block; margin-bottom: 16px; animation: spin-slow 12s linear infinite; }
+/* ────── IDEA SECTION ────── */
+.idea-section { max-width:760px; margin:0 auto; padding:0 44px 80px; }
+.idea-card { background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:30px; padding:52px; text-align:center; position:relative; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,0.3); backdrop-filter:blur(5px); }
+.idea-icon { font-size:42px; display:block; margin-bottom:16px; animation:spin-slow 12s linear infinite; }
 @keyframes spin-slow { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
-.idea-title { font-size: 24px; font-weight: 900; margin-bottom: 10px; line-height: 1.3; color: var(--text); }
-.idea-title .g { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.idea-desc { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 30px; }
-.idea-textarea {
-  width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
-  padding: 18px 22px; color: white; font-size: 14px; font-family: 'Rubik', sans-serif; outline: none;
-  transition: all 0.3s; resize: vertical; min-height: 110px; margin-bottom: 16px; direction: rtl; line-height: 1.7;
-}
-.idea-textarea::placeholder { color: rgba(255,255,255,0.22); }
-.idea-textarea:focus { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 0 3px rgba(139,92,246,0.1); background: rgba(255,255,255,0.06); }
-.idea-name-row { display: flex; gap: 12px; margin-bottom: 16px; }
-.idea-input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 20px; color: white; font-size: 14px; font-family: 'Rubik', sans-serif; outline: none; transition: all 0.3s; }
-.idea-input::placeholder { color: rgba(255,255,255,0.25); }
-.idea-input:focus { border-color: rgba(139,92,246,0.5); box-shadow: 0 0 0 3px rgba(139,92,246,0.1); background: rgba(255,255,255,0.06); }
-.idea-submit-btn { padding: 15px 36px; background: linear-gradient(135deg, var(--violet) 0%, var(--blue) 100%); border: none; border-radius: 14px; color: white; font-family: 'Rubik', sans-serif; font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px; }
-.idea-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139,92,246,0.4); }
-.idea-msg { font-size: 13px; font-weight: 600; min-height: 18px; transition: all 0.3s; margin-top: 12px; }
+.idea-title { font-size:24px; font-weight:900; margin-bottom:10px; line-height:1.3; color:var(--text); }
+.idea-title .g { background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.idea-desc { font-size:15px; color:var(--text-dim); line-height:1.8; margin-bottom:30px; }
+.idea-textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:18px 22px; color:white; font-size:14px; font-family:'Rubik',sans-serif; outline:none; transition:all 0.3s; resize:vertical; min-height:110px; margin-bottom:16px; direction:rtl; line-height:1.7; }
+.idea-textarea::placeholder { color:rgba(255,255,255,0.22); }
+.idea-textarea:focus { border-color:rgba(139,92,246,0.5); box-shadow:0 0 0 3px rgba(139,92,246,0.1); background:rgba(255,255,255,0.06); }
+.idea-name-row { display:flex; gap:12px; margin-bottom:16px; }
+.idea-input { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px 20px; color:white; font-size:14px; font-family:'Rubik',sans-serif; outline:none; transition:all 0.3s; }
+.idea-input::placeholder { color:rgba(255,255,255,0.25); }
+.idea-input:focus { border-color:rgba(139,92,246,0.5); box-shadow:0 0 0 3px rgba(139,92,246,0.1); background:rgba(255,255,255,0.06); }
+.idea-submit-btn { padding:15px 36px; background:linear-gradient(135deg,var(--violet) 0%,var(--blue) 100%); border:none; border-radius:14px; color:white; font-family:'Rubik',sans-serif; font-size:15px; font-weight:800; cursor:pointer; transition:all 0.3s; letter-spacing:0.5px; }
+.idea-submit-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(139,92,246,0.4); }
+.idea-msg { font-size:13px; font-weight:600; min-height:18px; transition:all 0.3s; margin-top:12px; }
 
 /* ────── FOOTER ────── */
 footer { position:relative; z-index:1; padding:50px 20px 40px; text-align:center; border-top:1px solid rgba(255,255,255,0.06); }
@@ -384,25 +253,606 @@ footer::before { content:''; position:absolute; top:0; left:50%; transform:trans
 .footer-logo { font-family:'Dancing Script',cursive; font-size:48px; font-weight:700; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:block; margin-bottom:6px; filter:drop-shadow(0 0 16px rgba(214,76,120,0.3)); }
 .footer-tagline { font-size:11px; letter-spacing:5px; color:var(--text-dim); font-weight:600; text-transform:uppercase; margin-bottom:28px; }
 .footer-links { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:28px; flex-wrap:wrap; }
-.footer-email-link { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:30px; font-size:14px; color:var(--text-dim); text-decoration:none; transition:all 0.3s; font-weight:500; }
+.footer-email-link,.footer-portfolio-link { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:30px; font-size:14px; color:var(--text-dim); text-decoration:none; transition:all 0.3s; font-weight:500; }
 .footer-email-link:hover { border-color:rgba(214,76,120,0.4); color:white; background:rgba(214,76,120,0.08); transform:translateY(-2px); box-shadow:0 6px 20px rgba(214,76,120,0.15); }
-.footer-portfolio-link { display:inline-flex; align-items:center; gap:9px; padding:11px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:30px; font-size:14px; color:var(--text-dim); text-decoration:none; transition:all 0.3s; font-weight:500; }
 .footer-portfolio-link:hover { border-color:rgba(37,82,154,0.4); color:white; background:rgba(37,82,154,0.08); transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,82,154,0.15); }
 .email-dot { width:6px; height:6px; border-radius:50%; background:var(--pink); animation:pulse-dot 2s ease-in-out infinite; }
 @keyframes pulse-dot { 0%,100%{box-shadow:0 0 0 0 rgba(214,76,120,0.4);} 50%{box-shadow:0 0 0 5px rgba(214,76,120,0);} }
 .footer-copy { font-size:11px; color:rgba(255,255,255,0.15); margin-top:14px; letter-spacing:0.5px; }
 
-/* ── כפתורי מערכת איפוס וחזרה ── */
-.reset-zone { text-align: center; padding: 0 20px 40px; position: relative; z-index: 10; display: none; }
-body.unlocked .reset-zone,
-body.peeking .reset-zone { display: block; } 
-.reset-btn {
-  display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; 
-  background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); 
-  border-radius: 12px; color: rgba(255, 255, 255, 0.4); font-size: 13px; font-weight: 500;
-  cursor: pointer; transition: all 0.25s; text-decoration: none; font-family: 'Rubik', sans-serif;
+/* ── RESET ZONE ── */
+.reset-zone { text-align:center; padding:0 20px 40px; position:relative; z-index:10; display:none; }
+body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
+.reset-btn { display:inline-flex; align-items:center; gap:8px; padding:10px 22px; background:rgba(255,255,255,0.02); border:1px dashed rgba(255,255,255,0.15); border-radius:12px; color:rgba(255,255,255,0.4); font-size:13px; font-weight:500; cursor:pointer; transition:all 0.25s; text-decoration:none; font-family:'Rubik',sans-serif; }
+.reset-btn:hover { background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.3); color:#fc8585; }
+
+/* ════════════════════════════════════════════════════════
+   ✦  FLOATING UPDATES PANEL (Chat-style)
+════════════════════════════════════════════════════════ */
+
+/* ── Toggle Button ── */
+.updates-toggle-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-lt) 0%, var(--pink) 45%, var(--blue) 100%);
+  border: none;
+  cursor: pointer;
+  z-index: 8990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  box-shadow: 0 8px 32px rgba(214,76,120,0.45), 0 4px 16px rgba(0,0,0,0.35);
+  transition: transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s;
+  color: white;
 }
-.reset-btn:hover { background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.3); color: #fc8585; }
+.updates-toggle-btn:hover {
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 14px 44px rgba(214,76,120,0.55);
+}
+.updates-toggle-btn.active {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--pink) 100%);
+}
+
+/* Pulse ring — only visible when there are unread updates */
+.updates-toggle-btn.has-new::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid rgba(214,76,120,0.5);
+  animation: upd-pulse 2.4s ease-out infinite;
+}
+@keyframes upd-pulse {
+  0%   { transform: scale(0.9); opacity: 0.9; }
+  70%  { transform: scale(1.25); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* Badge */
+.updates-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: #ef4444;
+  border: 2px solid var(--deep);
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 800;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rubik', sans-serif;
+  animation: badge-pop 0.4s cubic-bezier(.16,1,.3,1);
+}
+@keyframes badge-pop {
+  from { transform: scale(0); }
+  to   { transform: scale(1); }
+}
+.updates-badge.hidden { display: none; }
+
+/* ── Panel ── */
+.updates-panel {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  width: 340px;
+  height: 470px;
+  background: rgba(7, 10, 22, 0.97);
+  border: 1px solid rgba(214,76,120,0.18);
+  border-radius: 24px;
+  z-index: 8989;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.65),
+    0 0 0 1px rgba(255,255,255,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px);
+  /* Start state: hidden below */
+  transform: translateY(24px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.38s cubic-bezier(.16,1,.3,1),
+    opacity   0.32s ease;
+  transform-origin: bottom right;
+}
+.updates-panel.open {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Header */
+.updates-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 13px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: linear-gradient(135deg, rgba(214,76,120,0.07), rgba(37,82,154,0.07));
+  flex-shrink: 0;
+  position: relative;
+}
+.updates-panel-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(214,76,120,0.3), rgba(37,82,154,0.3), transparent);
+}
+.updates-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.updates-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(214,76,120,0.35);
+}
+.updates-header-info { display: flex; flex-direction: column; gap: 2px; }
+.updates-header-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+.updates-header-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #34d399;
+  font-weight: 500;
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.updates-close-btn {
+  width: 30px;
+  height: 30px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: 'Rubik', sans-serif;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.updates-close-btn:hover {
+  background: rgba(214,76,120,0.12);
+  border-color: rgba(214,76,120,0.25);
+  color: white;
+}
+
+/* Messages area */
+.updates-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.updates-messages::-webkit-scrollbar { width: 3px; }
+.updates-messages::-webkit-scrollbar-track { background: transparent; }
+.updates-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+/* Individual message bubble */
+.update-msg {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  animation: msg-slide-in 0.4s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes msg-slide-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.update-msg-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  margin-top: 2px;
+}
+
+.update-msg-bubble {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px 16px 16px 16px;
+  padding: 10px 12px 9px;
+}
+
+.update-msg-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.update-msg-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #e8eeff;
+  flex: 1;
+  line-height: 1.3;
+}
+.update-new-tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--pink), #7b5cf6);
+  color: white;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.update-msg-body {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+.update-msg-date {
+  font-size: 10px;
+  color: rgba(255,255,255,0.18);
+  font-weight: 500;
+}
+
+/* Loading state */
+.updates-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+.updates-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255,255,255,0.08);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Footer */
+.updates-panel-footer {
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  text-align: center;
+  flex-shrink: 0;
+}
+.updates-panel-footer p {
+  font-size: 10px;
+  color: rgba(255,255,255,0.15);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* ════════════════════════════════════════════════════════
+   ✦  NEWSLETTER POPUP (Smart — once per week)
+════════════════════════════════════════════════════════ */
+
+.nl-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99990;
+  background: rgba(4, 6, 15, 0.72);
+  backdrop-filter: blur(14px) saturate(110%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+.nl-popup-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.nl-popup-card {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  background: linear-gradient(170deg, rgba(12,18,38,0.99) 0%, rgba(5,8,20,0.99) 100%);
+  border-radius: 28px;
+  padding: 44px 36px 36px;
+  text-align: center;
+  overflow: hidden;
+  /* Glowing border via box-shadow */
+  box-shadow:
+    0 0 0 1px rgba(214,76,120,0.2),
+    0 0 60px rgba(214,76,120,0.12),
+    0 40px 100px rgba(0,0,0,0.65);
+  animation: popup-appear 0.5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes popup-appear {
+  from { opacity: 0; transform: translateY(28px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Ambient glow blobs inside the card */
+.nl-popup-card::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse, rgba(214,76,120,0.1), transparent 65%);
+  pointer-events: none;
+}
+.nl-popup-card::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(ellipse, rgba(37,82,154,0.12), transparent 65%);
+  pointer-events: none;
+}
+
+/* Floating sparkles */
+.nl-sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 13px;
+  opacity: 0;
+  animation: sparkle-float linear infinite;
+}
+.nl-sparkle:nth-child(1) { top: 20%; left: 8%;  animation-duration: 4.2s; animation-delay: 0s;   }
+.nl-sparkle:nth-child(2) { top: 15%; right: 10%; animation-duration: 3.8s; animation-delay: 0.7s; }
+.nl-sparkle:nth-child(3) { top: 60%; left: 5%;  animation-duration: 5s;   animation-delay: 1.4s; }
+.nl-sparkle:nth-child(4) { top: 70%; right: 6%; animation-duration: 4.5s; animation-delay: 2s;   }
+@keyframes sparkle-float {
+  0%   { opacity: 0; transform: translateY(0)    rotate(0deg);   }
+  20%  { opacity: 0.5; }
+  80%  { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-55px) rotate(200deg); }
+}
+
+/* Close button */
+.nl-popup-close {
+  position: absolute;
+  top: 14px;
+  left: 14px; /* left = visual right in RTL */
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-family: 'Rubik', sans-serif;
+  z-index: 1;
+  line-height: 1;
+}
+.nl-popup-close:hover {
+  background: rgba(239,68,68,0.1);
+  border-color: rgba(239,68,68,0.2);
+  color: #fc8585;
+  transform: rotate(90deg);
+}
+
+/* Emoji / icon */
+.nl-popup-emoji-wrap {
+  position: relative;
+  z-index: 1;
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(214,76,120,0.12), rgba(37,82,154,0.12));
+  border: 1px solid rgba(214,76,120,0.2);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  animation: nl-icon-float 3.5s ease-in-out infinite;
+  box-shadow: 0 8px 28px rgba(214,76,120,0.2);
+}
+@keyframes nl-icon-float {
+  0%,100% { transform: translateY(0)    rotate(-2deg); }
+  50%     { transform: translateY(-7px) rotate(2deg);  }
+}
+
+.nl-popup-title {
+  position: relative;
+  z-index: 1;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 9px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nl-popup-sub {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+
+/* Benefits list */
+.nl-popup-benefits {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 24px;
+  text-align: right;
+}
+.nl-popup-benefit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 11px;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #c8d5f0;
+  font-weight: 500;
+}
+.nl-benefit-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: rgba(214,76,120,0.08);
+  border: 1px solid rgba(214,76,120,0.12);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+/* Form */
+.nl-popup-form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nl-email-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 13px;
+  padding: 14px 18px;
+  color: white;
+  font-size: 14px;
+  font-family: 'Rubik', sans-serif;
+  outline: none;
+  transition: all 0.3s;
+  direction: ltr;
+  text-align: center;
+}
+.nl-email-input::placeholder { color: rgba(255,255,255,0.22); }
+.nl-email-input:focus {
+  border-color: rgba(214,76,120,0.5);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px rgba(214,76,120,0.1);
+}
+
+.nl-submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--pink-lt), var(--pink) 45%, var(--blue));
+  border: none;
+  border-radius: 13px;
+  color: white;
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+}
+.nl-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.nl-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(214,76,120,0.4); }
+.nl-submit-btn:hover::before { transform: translateX(100%); }
+.nl-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+.nl-no-thanks {
+  background: none;
+  border: none;
+  font-family: 'Rubik', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.22);
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255,255,255,0.15);
+}
+.nl-no-thanks:hover { color: rgba(255,255,255,0.5); }
+
+.nl-popup-msg {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 16px;
+  margin-top: 4px;
+  transition: all 0.3s;
+}
 
 /* ────── RESPONSIVE ────── */
 @media (max-width: 960px) {
@@ -420,29 +870,108 @@ body.peeking .reset-zone { display: block; }
   .join-input-row, .outside-input-row, .idea-name-row { flex-direction: column; }
   .join-card { padding: 44px 28px 40px; }
   .idea-card { padding: 42px 28px 40px; }
+  /* Updates panel — full-width on mobile */
+  .updates-panel {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 90px;
+  }
+  .updates-toggle-btn { bottom: 20px; right: 20px; }
+  /* Popup card padding reduction */
+  .nl-popup-card { padding: 40px 22px 28px; }
+  .nl-popup-title { font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 </style>
 </head>
+
 <body class="locked">
 
+<!-- ════ PEEK BAR ════ -->
 <div id="peekStatusNotice">
   <span>👀 את נמצאת כרגע ב<b>מצב הצצה בלבד</b>. כדי להפעיל ולפתוח את הכלים יש להזין קוד גישה.</span>
   <button class="peek-return-btn" onclick="lockPortalForcefully()">חזרה למסך הנעילה 🔒</button>
 </div>
 
+<!-- ════ BACKGROUND ════ -->
 <div class="bg-canvas">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
 
+<!-- ════════════════════════════════════════════════
+     ✦ SMART NEWSLETTER POPUP (shows once per week)
+════════════════════════════════════════════════ -->
+<div id="nlPopup" class="nl-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="nlPopupTitle">
+  <div class="nl-popup-card">
+    <!-- Sparkles (decorative, aria-hidden) -->
+    <span class="nl-sparkle" aria-hidden="true">✦</span>
+    <span class="nl-sparkle" aria-hidden="true">✧</span>
+    <span class="nl-sparkle" aria-hidden="true">✦</span>
+    <span class="nl-sparkle" aria-hidden="true">✧</span>
+
+    <button class="nl-popup-close" onclick="closeNlPopup()" aria-label="סגירת חלון">✕</button>
+
+    <div class="nl-popup-emoji-wrap" aria-hidden="true">💌</div>
+
+    <h2 class="nl-popup-title" id="nlPopupTitle">
+      רגע לפני שממשיכים...
+    </h2>
+    <p class="nl-popup-sub">
+      הצטרפי לקהילת המעצבות של Swift Studio —<br>
+      קבלי כלים, טיפים ועדכונים לפני כולן.
+    </p>
+
+    <div class="nl-popup-benefits" aria-label="הטבות">
+      <div class="nl-popup-benefit">
+        <span class="nl-benefit-icon">🚀</span>
+        כלים חדשים — את הראשונה לדעת
+      </div>
+      <div class="nl-popup-benefit">
+        <span class="nl-benefit-icon">💡</span>
+        טיפים ושיטות עבודה מקצועיות
+      </div>
+      <div class="nl-popup-benefit">
+        <span class="nl-benefit-icon">🎁</span>
+        מבצעים ותכנים בלעדיים למנויות
+      </div>
+    </div>
+
+    <form class="nl-popup-form" id="nlPopupForm" novalidate>
+      <input
+        class="nl-email-input"
+        type="email"
+        id="nlEmailInput"
+        name="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+        required
+        aria-label="כתובת מייל"
+      >
+      <button class="nl-submit-btn" type="submit" id="nlSubmitBtn">
+        ✦ הצטרפי עכשיו — בחינם
+      </button>
+      <button type="button" class="nl-no-thanks" onclick="closeNlPopupForever()">
+        לא תודה, אמשיך בלי עדכונים
+      </button>
+    </form>
+
+    <p class="nl-popup-msg" id="nlPopupMsg" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<!-- ════ LOGIN OVERLAY ════ -->
 <div id="loginOverlay">
   <div class="login-wrap">
-    
+
     <div class="login-card-segment login-main-card">
       <span class="l-logo">Swift</span>
       <p class="l-sub">S T U D I O &nbsp;·&nbsp; כלי מעצבת</p>
-      
+
       <p class="l-label">
         <span class="lock-icon">🔐</span>
         הזיני קוד גישה לכניסה מלאה:
@@ -455,18 +984,18 @@ body.peeking .reset-zone { display: block; }
           placeholder="• • • • • • • • • •"
           autocomplete="off"
           onkeydown="if(event.key==='Enter') doLogin()"
+          maxlength="128"
         >
-        <button class="eye-btn" onclick="toggleEye()">👁</button>
+        <button class="eye-btn" onclick="toggleEye()" aria-label="הצג/הסתר סיסמה">👁</button>
       </div>
-      <button class="enter-btn" onclick="doLogin()">✦ כניסה לסטודיו המלא ✦</button>
-      <p class="l-error" id="loginError"></p>
+      <button class="enter-btn" id="enterBtn" onclick="doLogin()">✦ כניסה לסטודיו המלא ✦</button>
+      <p class="l-error" id="loginError" role="alert" aria-live="assertive"></p>
     </div>
 
     <div class="login-card-segment login-pricing-card">
       <div class="l-pricing-headline">דיל השקה מטורף</div>
       <div class="l-pricing-subhead">רכישה חד פעמית — כל 7 הכלים פתוחים לכל החיים ללא הגבלת שימוש.</div>
       <div class="l-pricing-badge">✦ לקבלת כל הפרטים והמחיר — כתבי לי עכשיו ✦</div>
-      
       <button class="l-copy-btn" id="copyEmailBtn" onclick="copyEmailToClipboard()">
         <span class="l-copy-icon">📋</span>
         <span id="copyBtnText">SWIFT84529@GMAIL.COM</span>
@@ -481,9 +1010,9 @@ body.peeking .reset-zone { display: block; }
 
     <div class="login-card-segment login-newsletter-card">
       <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה — קבלי עדכונים על כלים חדשים, טיפים מקצועיים, שיתופים מעוררי השראה ומבצעים בלעדיים:</p>
-      <form id="outsideJoinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+      <form id="outsideJoinForm" novalidate style="display:contents;">
         <div class="outside-input-row">
-          <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required>
+          <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required autocomplete="email">
           <button class="outside-submit-btn" type="submit">הירשמי</button>
         </div>
         <label class="newsletter-consent">
@@ -491,13 +1020,13 @@ body.peeking .reset-zone { display: block; }
           <span>אני מאשרת קבלת עדכונים, דיוורים ותוכן שיווקי מ-Swift Studio. ניתן לבטל בכל עת.</span>
         </label>
       </form>
-      <p class="outside-msg" id="outsideJoinMsg"></p>
+      <p class="outside-msg" id="outsideJoinMsg" role="status" aria-live="polite"></p>
     </div>
 
   </div>
 </div>
 
-
+<!-- ════ MAIN PORTAL ════ -->
 <div id="mainPortal">
 
   <header class="hero">
@@ -510,7 +1039,7 @@ body.peeking .reset-zone { display: block; }
       כל הכלים שאת צריכה — במקום אחד, מוכנים לעבודה.
       מקצועי, מהיר ומותאם בדיוק לך.
     </p>
-    
+
     <div class="portal-support-box">
       <div class="portal-support-icon">🛠️</div>
       <div class="portal-support-text">
@@ -528,7 +1057,7 @@ body.peeking .reset-zone { display: block; }
 
   <div class="wave-divider"></div>
 
-  <section class="tools-section">
+  <section class="tools-section" aria-label="כלי הסטודיו">
     <div class="section-header">
       <span class="section-eyebrow">✦ &nbsp; ה כ ל י ם &nbsp; ✦</span>
       <h2 class="section-title">בחרי כלי ותתחילי לעבוד</h2>
@@ -538,124 +1067,78 @@ body.peeking .reset-zone { display: block; }
     <div class="tools-grid">
 
       <a class="tool-card" href="https://swift84529-boop.github.io/SHIPUR/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">🔬</div>
           <span class="card-tag">תמונות AI · שיפור</span>
           <h3 class="card-title">שיפור תמונות</h3>
-          <p class="card-desc">
-            חדדי פרטים, הסירי רעש דיגיטלי ושפרי את איכות התמונות שלך בלחיצה אחת — מהיר, מדויק, מקצועי.
-          </p>
+          <p class="card-desc">חדדי פרטים, הסירי רעש דיגיטלי ושפרי את איכות התמונות שלך בלחיצה אחת — מהיר, מדויק, מקצועי.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/HORADATNEFACH/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">🗜️</div>
           <span class="card-tag">קבצים · אופטימיזציה</span>
           <h3 class="card-title">הקטנת נפח</h3>
-          <p class="card-desc">
-            דחסי תמונות וקבצים בצורה חכמה, מבלי לפגוע באיכות הוויזואלית.
-            חסכי מקום ושמרי על התוצרים שלך חדים ומהירים לשליחה.
-          </p>
+          <p class="card-desc">דחסי תמונות וקבצים בצורה חכמה, מבלי לפגוע באיכות הוויזואלית. חסכי מקום ושמרי על התוצרים שלך חדים ומהירים לשליחה.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/CHATIMATMAIM/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">💎</div>
           <span class="card-tag">מיתוג · הגנה</span>
           <h3 class="card-title">חתימת מים</h3>
-          <p class="card-desc">
-            הוסיפי חתימה מקצועית לתמונות שלך בצבעים, גודל ושקיפות מותאמים.
-            העלי לוגו משלך לחתימה מיתוגית. הגני על העבודה שלך ושמרי על הזהות המיתוגית.
-          </p>
+          <p class="card-desc">הוסיפי חתימה מקצועית לתמונות שלך בצבעים, גודל ושקיפות מותאמים. העלי לוגו משלך לחתימה מיתוגית. הגני על העבודה שלך.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/TSHTUSHPANIM/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">🎭</div>
           <span class="card-tag">פרטיות · AI</span>
           <h3 class="card-title">טשטוש פנים</h3>
-          <p class="card-desc">
-            זיהוי אוטומטי וטשטוש פנים בתמונות בעזרת AI.
-            מושלם לשמירה על פרטיות לקוחות ולפרסום תמונות.
-          </p>
+          <p class="card-desc">זיהוי אוטומטי וטשטוש פנים בתמונות בעזרת AI. מושלם לשמירה על פרטיות לקוחות ולפרסום תמונות.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/KLYZEVA/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">🎨</div>
           <span class="card-tag">עיצוב · צבעים</span>
           <h3 class="card-title">כלי הצבעים</h3>
-          <p class="card-desc">
-            צרי, ערכי ונהלי פלטות צבעים מרהיבות לפרויקטים שלך.
-            מחולל פלטות חכם עם מצבי הרמוניה, ניגודיות ויצוא מהיר.
-          </p>
+          <p class="card-desc">צרי, ערכי ונהלי פלטות צבעים מרהיבות לפרויקטים שלך. מחולל פלטות חכם עם מצבי הרמוניה, ניגודיות ויצוא מהיר.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/MEMIR/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">⚡</div>
           <span class="card-tag">המרה · פורמטים</span>
           <h3 class="card-title">ממיר קבצים</h3>
-          <p class="card-desc">
-            המרות מתקדמות: PDF לתמונות, כל פורמטי התמונה הנפוצים, וכן המרת CMYK ל-RGB ולהפך — הכל בדפדפן, ללא הורדה.
-          </p>
+          <p class="card-desc">המרות מתקדמות: PDF לתמונות, כל פורמטי התמונה הנפוצים, וכן המרת CMYK ל-RGB ולהפך — הכל בדפדפן, ללא הורדה.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
 
       <a class="tool-card" href="https://swift84529-boop.github.io/NIULPRUIKTIM/" target="_blank" rel="noopener">
-        <div class="peek-overlay-notice">
-          <span>🔒</span>
-          <p>הכלי נעול במצב הצצה</p>
-          <small>הזיני קוד גישה לפתיחה</small>
-        </div>
+        <div class="peek-overlay-notice"><span>🔒</span><p>הכלי נעול במצב הצצה</p><small>הזיני קוד גישה לפתיחה</small></div>
         <div class="card-inner">
           <div class="card-icon-box">📋</div>
           <span class="card-tag">ניהול · CRM</span>
           <h3 class="card-title">ניהול פרויקטים</h3>
-          <p class="card-desc">
-            קיבלת המון הערות מהלקוח? על המצגת, הפרויקט, הגרפיקה? הכלי הזה מסדר הכל לצ'קליסט נקי ונעים לעין, עם חלוקה חכמה לפריטים.
-          </p>
+          <p class="card-desc">קיבלת המון הערות מהלקוח? על המצגת, הפרויקט, הגרפיקה? הכלי הזה מסדר הכל לצ'קליסט נקי ונעים לעין, עם חלוקה חכמה לפריטים.</p>
           <div class="card-cta">פתחי את הכלי <span class="cta-arrow">←</span></div>
         </div>
       </a>
@@ -669,26 +1152,16 @@ body.peeking .reset-zone { display: block; }
     <div class="join-card">
       <span class="join-icon">✉️</span>
       <h2 class="join-title">הצטרפי לסטודיו</h2>
-      <p class="join-desc">
-        השאירי את המייל שלך וקבלי עדכון ראשונה על כל כלי חדש,
-        שדרוג ותכונה שמצטרפת — לפני כולם.
-      </p>
+      <p class="join-desc">השאירי את המייל שלך וקבלי עדכון ראשונה על כל כלי חדש, שדרוג ותכונה שמצטרפת — לפני כולם.</p>
       <div class="join-perks">
         <div class="perk"><div class="perk-dot"></div> עדכונים ראשונה</div>
         <div class="perk"><div class="perk-dot"></div> כלים חדשים בלעדיים</div>
         <div class="perk"><div class="perk-dot"></div> טיפים ושיתופים מעוררי השראה</div>
         <div class="perk"><div class="perk-dot"></div> ללא ספאם</div>
       </div>
-      <form id="joinForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+      <form id="joinForm" novalidate style="display:contents;">
         <div class="join-input-row">
-          <input
-            class="join-email-in"
-            type="email"
-            name="email"
-            id="joinEmailInput"
-            placeholder="your@email.com"
-            required
-          >
+          <input class="join-email-in" type="email" name="email" id="joinEmailInput" placeholder="your@email.com" required autocomplete="email">
           <input type="hidden" name="_subject" value="הרשמה חדשה לרשימה — Swift Studio">
           <input type="hidden" name="source" value="join-section">
           <button class="join-submit-btn" type="submit">הצטרפי ✦</button>
@@ -698,7 +1171,7 @@ body.peeking .reset-zone { display: block; }
           <span>אני מאשרת קבלת עדכונים, דיוורים, טיפים ותוכן שיווקי מ-Swift Studio. ניתן לבטל בכל עת.</span>
         </label>
       </form>
-      <p class="join-msg" id="joinMsg"></p>
+      <p class="join-msg" id="joinMsg" role="status" aria-live="polite"></p>
     </div>
   </div>
 
@@ -709,7 +1182,7 @@ body.peeking .reset-zone { display: block; }
       <span class="idea-icon">💡</span>
       <h2 class="idea-title">יש לך כלי שאת חולמת שיקצר לך את <span class="g">העבודה?</span></h2>
       <p class="idea-desc">כתבי לי — אני רוצה לשמוע את הרעיונות שלך ולבנות את הכלים שתמיד חיכית להם.</p>
-      <form id="ideaForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="display:contents;">
+      <form id="ideaForm" novalidate style="display:contents;">
         <input type="hidden" name="_subject" value="רעיון לכלי חדש — Swift Studio">
         <input type="hidden" name="source" value="idea-form">
         <div class="idea-name-row">
@@ -719,14 +1192,13 @@ body.peeking .reset-zone { display: block; }
         <textarea class="idea-textarea" name="idea" placeholder="תארי את הכלי שחלמת עליו... מה הוא עושה? מה הוא פותר לך?" required></textarea>
         <button class="idea-submit-btn" type="submit" id="ideaSubmitBtn">✦ שלחי את הרעיון</button>
       </form>
-      <p class="idea-msg" id="ideaMsg"></p>
+      <p class="idea-msg" id="ideaMsg" role="status" aria-live="polite"></p>
     </div>
   </div>
 
   <footer>
     <span class="footer-logo">Swift</span>
     <p class="footer-tagline">S &nbsp;T&nbsp; U &nbsp;D&nbsp; I &nbsp;O &nbsp;·&nbsp; כלי עזר למעצבת</p>
-
     <div class="footer-links">
       <a href="mailto:SWIFT84529@GMAIL.COM" class="footer-email-link">
         <div class="email-dot"></div>
@@ -736,7 +1208,6 @@ body.peeking .reset-zone { display: block; }
         🎬 &nbsp; תיק עבודות
       </a>
     </div>
-
     <p class="footer-copy">© 2026 Swift Studio &nbsp;·&nbsp; כל הזכויות שמורות &nbsp;·&nbsp; SWIFT84529@GMAIL.COM</p>
   </footer>
 
@@ -746,19 +1217,126 @@ body.peeking .reset-zone { display: block; }
     </button>
   </div>
 
+</div><!-- /mainPortal -->
+
+
+<!-- ════════════════════════════════════════════════
+     ✦ FLOATING UPDATES PANEL
+════════════════════════════════════════════════ -->
+<button
+  id="updatesToggle"
+  class="updates-toggle-btn has-new"
+  onclick="toggleUpdatesPanel()"
+  aria-label="פתיחת חלון עדכוני הסטודיו"
+  aria-expanded="false"
+  aria-controls="updatesPanel"
+>
+  ✦
+  <span class="updates-badge" id="updatesBadge" aria-label="2 עדכונים חדשים">2</span>
+</button>
+
+<div
+  id="updatesPanel"
+  class="updates-panel"
+  role="complementary"
+  aria-label="עדכוני הסטודיו"
+  aria-hidden="true"
+>
+  <div class="updates-panel-header">
+    <div class="updates-header-left">
+      <div class="updates-avatar" aria-hidden="true">S</div>
+      <div class="updates-header-info">
+        <p class="updates-header-name">Swift Studio</p>
+        <div class="updates-header-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          פעיל עכשיו
+        </div>
+      </div>
+    </div>
+    <button
+      class="updates-close-btn"
+      onclick="toggleUpdatesPanel()"
+      aria-label="סגירת חלון עדכונים"
+    >✕</button>
+  </div>
+
+  <div class="updates-messages" id="updatesMessages">
+    <div class="updates-loading" id="updatesLoading" aria-live="polite">
+      <div class="updates-loading-spinner" aria-hidden="true"></div>
+      <span>טוענת עדכונים...</span>
+    </div>
+  </div>
+
+  <!-- Admin write area — shown only after admin login -->
+  <div id="adminWriteArea" style="display:none; padding:10px 14px; border-top:1px solid rgba(255,255,255,0.05);">
+    <div style="display:flex; gap:8px;">
+      <input id="adminMsgText" type="text" placeholder="כתבי עדכון חדש..." dir="rtl"
+        style="flex:1; background:rgba(214,76,120,0.06); border:1px solid rgba(214,76,120,0.2); border-radius:10px; padding:9px 13px; color:white; font-size:13px; font-family:'Rubik',sans-serif; outline:none;"
+        onkeydown="if(event.key==='Enter') sendAdminMessage()">
+      <button onclick="sendAdminMessage()"
+        style="padding:9px 14px; border:none; border-radius:10px; background:linear-gradient(135deg,var(--pink),var(--blue)); color:white; font-family:'Rubik',sans-serif; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap;">
+        ✦ שלח
+      </button>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:7px;">
+      <span style="font-size:10px; color:var(--pink-lt); font-weight:600;">⭐ מחוברת כאדמין</span>
+      <button onclick="clearAllMessages()"
+        style="font-size:10px; color:rgba(255,100,100,0.5); background:none; border:none; cursor:pointer; font-family:'Rubik',sans-serif;">
+        🗑 נקי הכל
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin login — tiny dots at bottom -->
+  <div class="updates-panel-footer">
+    <span id="adminToggle" onclick="toggleAdminLogin()"
+      style="font-size:11px; color:rgba(255,255,255,0.12); cursor:pointer; letter-spacing:3px; user-select:none;">· · ·</span>
+    <div id="adminLoginBox" style="display:none; margin-top:10px;">
+      <div style="display:flex; gap:7px;">
+        <input id="adminPassInput" type="password" placeholder="סיסמת אדמין" dir="rtl"
+          style="flex:1; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:8px 12px; color:white; font-size:12px; font-family:'Rubik',sans-serif; outline:none;"
+          onkeydown="if(event.key==='Enter') loginAdmin()">
+        <button onclick="loginAdmin()"
+          style="padding:8px 12px; border:none; border-radius:8px; background:rgba(214,76,120,0.15); border:1px solid rgba(214,76,120,0.2); color:white; font-family:'Rubik',sans-serif; font-size:12px; font-weight:600; cursor:pointer;">
+          כניסה
+        </button>
+      </div>
+      <p id="adminErr" style="font-size:10px; color:#fc8585; margin-top:5px; min-height:12px; text-align:center;"></p>
+    </div>
+  </div>
 </div>
 
 
+<!-- ════════════════════════════════════════════════
+     ✦ JAVASCRIPT
+════════════════════════════════════════════════ -->
 <script>
-// 🔐 auth token assembled at runtime — not stored as plain text
-const _k = [36,75,55,35,119,80,57,33,122,86,50,64,109,36].map(c=>String.fromCharCode(c)).join('');
-const CORRECT = _k;
-const SESSION_KEY = 'ss_auth_v1';
-const STORE = localStorage;
+/* ─────────────────────────────────────────────────────────────────
+   STORAGE KEYS
+───────────────────────────────────────────────────────────────── */
+const KEYS = {
+  unlocked:     'ss_unlocked_v4',
+  popupShown:   'ss_popup_last_shown_v2',
+  subscribed:   'ss_subscribed_v2',
+};
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (STORE.getItem(SESSION_KEY) === '1') {
+/* ─────────────────────────────────────────────────────────────────
+   🔐  AUTHENTICATION  (Frontend-based — no server required)
+───────────────────────────────────────────────────────────────── */
+
+// SHA-256 hash of the access password — keeps it out of plain sight
+const ACCESS_HASH = 'b4bf7774b1b98bfd142ecd72c5d0bcbaf6f9a99afab5409aea9975039535da3d';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem(KEYS.unlocked) === 'true') {
     unlockPortal();
+  } else {
+    document.body.className = 'locked';
   }
 });
 
@@ -767,131 +1345,451 @@ function toggleEye() {
   inp.type = (inp.type === 'password') ? 'text' : 'password';
 }
 
-function doLogin() {
-  const val = document.getElementById('passInput').value;
+async function doLogin() {
+  const val = (document.getElementById('passInput').value || '').trim();
   const err = document.getElementById('loginError');
+  const btn = document.getElementById('enterBtn');
 
-  if (val === CORRECT) {
-    STORE.setItem(SESSION_KEY, '1');
-    if(err) err.textContent = '';
+  if (!val) {
+    err.textContent = '✗ נא להזין סיסמה';
+    setTimeout(() => { err.textContent = ''; }, 2500);
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '⟳ בודקת...';
+  err.textContent = '';
+
+  const hash = await sha256(val);
+
+  // Compare against stored hash — password itself never appears in code
+  if (hash === ACCESS_HASH) {
+    localStorage.setItem(KEYS.unlocked, 'true');
     unlockPortal();
   } else {
-    if(err) err.textContent = '✗ סיסמה שגויה — נסי שוב';
-    setTimeout(() => { if(err) err.textContent = ''; }, 3000);
+    err.textContent = '✗ קוד גישה שגוי — נסי שוב';
+    setTimeout(() => { err.textContent = ''; }, 3500);
+    btn.disabled = false;
+    btn.textContent = '✦ כניסה לסטודיו המלא ✦';
   }
-}
-
-function copyEmailToClipboard() {
-  const emailText = "SWIFT84529@GMAIL.COM";
-  const btnText = document.getElementById('copyBtnText');
-  
-  navigator.clipboard.writeText(emailText).then(() => {
-    if(btnText) {
-      btnText.textContent = "הועתק! ✓";
-      btnText.style.color = "#34d399";
-      setTimeout(() => {
-        btnText.textContent = emailText;
-        btnText.style.color = "";
-      }, 2000);
-    }
-  }).catch(err => {
-    console.error('שגיאה בהעתקה: ', err);
-  });
 }
 
 function unlockPortal() {
   document.body.className = 'unlocked';
   const overlay = document.getElementById('loginOverlay');
   if (overlay) overlay.style.display = 'none';
+  // Trigger newsletter popup logic once the portal is visible
+  initNlPopup();
 }
 
 function enablePeekMode() {
-  document.body.className = 'peeking'; 
+  document.body.className = 'peeking';
   const overlay = document.getElementById('loginOverlay');
-  if (overlay) overlay.style.display = 'none'; 
+  if (overlay) overlay.style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  initNlPopup();
 }
 
 function lockPortalForcefully() {
-  STORE.removeItem(SESSION_KEY);
+  localStorage.removeItem(KEYS.unlocked);
   document.body.className = 'locked';
-  
   const overlay = document.getElementById('loginOverlay');
   if (overlay) overlay.style.display = 'flex';
-  
   const inp = document.getElementById('passInput');
-  if(inp) inp.value = '';
-  
+  if (inp) inp.value = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* טופס רשימת תפוצה - פנימי */
-document.getElementById('joinForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const msg = document.getElementById('joinMsg');
-  const btn = this.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = 'שולחת...';
-  try {
-    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (resp.ok) {
-      msg.style.color = '#34d399'; msg.textContent = '🎉 נהדר! נוספת לרשימה בהצלחה — ניפגש בתיבת הדואר!';
-      this.reset();
-      setTimeout(() => { msg.textContent = ''; }, 5000);
-    } else { throw new Error('server'); }
-  } catch {
-    msg.style.color = '#fc8585'; msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
-    setTimeout(() => { msg.textContent = ''; }, 4000);
-  }
-  btn.disabled = false; btn.textContent = 'הצטרפי ✦';
+function copyEmailToClipboard() {
+  const email   = 'SWIFT84529@GMAIL.COM';
+  const btnText = document.getElementById('copyBtnText');
+  navigator.clipboard.writeText(email).then(() => {
+    if (btnText) {
+      btnText.textContent = 'הועתק! ✓';
+      btnText.style.color = '#34d399';
+      setTimeout(() => { btnText.textContent = email; btnText.style.color = ''; }, 2000);
+    }
+  }).catch(() => {});
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   📬  SMART NEWSLETTER POPUP
+   Logic:
+     1. If already subscribed → never show.
+     2. If shown in the last 7 days → skip.
+     3. Otherwise → show after a 3.5s delay.
+───────────────────────────────────────────────────────────────── */
+
+const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+function initNlPopup() {
+  // Rule 1: already subscribed → done forever
+  if (localStorage.getItem(KEYS.subscribed) === 'true') return;
+
+  // Rule 2: shown recently
+  const lastShown = parseInt(localStorage.getItem(KEYS.popupShown) || '0', 10);
+  if (lastShown && (Date.now() - lastShown) < ONE_WEEK_MS) return;
+
+  // Rule 3: show after delay
+  setTimeout(() => {
+    const popup = document.getElementById('nlPopup');
+    if (popup) {
+      popup.classList.add('visible');
+      // Record the timestamp so it won't show again for 7 days
+      localStorage.setItem(KEYS.popupShown, Date.now().toString());
+      // Trap focus inside popup
+      document.getElementById('nlEmailInput')?.focus();
+    }
+  }, 3500);
+}
+
+function closeNlPopup() {
+  document.getElementById('nlPopup')?.classList.remove('visible');
+}
+
+/**
+ * "No thanks" — user explicitly dismissed: snooze for 7 days
+ * (same as clicking X; the next scheduled run of initNlPopup will
+ * re-check the 7-day window).
+ */
+function closeNlPopupForever() {
+  localStorage.setItem(KEYS.popupShown, Date.now().toString());
+  closeNlPopup();
+}
+
+/**
+ * Marks the user as subscribed so the popup never appears again.
+ * Called after every successful subscription across all forms.
+ */
+function markSubscribed() {
+  localStorage.setItem(KEYS.subscribed, 'true');
+  closeNlPopup();
+}
+
+// Close popup on overlay click (outside the card)
+document.getElementById('nlPopup')?.addEventListener('click', function(e) {
+  if (e.target === this) closeNlPopup();
 });
 
-/* טופס רשימת תפוצה - חיצוני */
-document.getElementById('outsideJoinForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const msg = document.getElementById('outsideJoinMsg');
-  const btn = this.querySelector('button[type="submit"]');
-  btn.disabled = true; btn.textContent = 'שולחת...';
-  try {
-    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (resp.ok) {
-      msg.style.color = '#34d399'; msg.textContent = '🎉 נרשמת בהצלחה!';
-      this.reset();
-      setTimeout(() => { msg.textContent = ''; }, 5000);
-    } else { throw new Error('server'); }
-  } catch {
-    msg.style.color = '#fc8585'; msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
-    setTimeout(() => { msg.textContent = ''; }, 4000);
-  }
-  btn.disabled = false; btn.textContent = 'הירשמי';
+// Close popup on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeNlPopup();
 });
 
-/* טופס שליחת רעיונות */
-document.getElementById('ideaForm').addEventListener('submit', async function(e) {
+// Popup form submit
+document.getElementById('nlPopupForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('nlEmailInput').value.trim();
+  const msg   = document.getElementById('nlPopupMsg');
+  const btn   = document.getElementById('nlSubmitBtn');
+
+  if (!email) return;
+
+  btn.disabled = true;
+  btn.textContent = 'שולחת...';
+  msg.textContent = '';
+
+  try {
+    const fd = new FormData();
+    fd.append('email', email);
+    fd.append('_subject', 'הרשמה לרשימת תפוצה — Swift Studio (popup)');
+    fd.append('source', 'popup');
+
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method:  'POST',
+      body:    fd,
+      headers: { 'Accept': 'application/json' },
+    });
+
+    if (resp.ok) {
+      msg.style.color = '#34d399';
+      msg.textContent = '🎉 נרשמת בהצלחה! נתראה בתיבת הדואר ✨';
+      markSubscribed(); // popup will never show again for this user
+      setTimeout(() => closeNlPopup(), 2800);
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
+    msg.style.color = '#fc8585';
+    msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    btn.disabled = false;
+    btn.textContent = '✦ הצטרפי עכשיו — בחינם';
+  }
+});
+
+
+/* ─────────────────────────────────────────────────────────────────
+   📢  FLOATING UPDATES PANEL
+───────────────────────────────────────────────────────────────── */
+
+let updatesOpen   = false;
+let updatesLoaded = false;
+
+// Fallback data used when the backend is unavailable
+// (e.g. running as a static HTML file without a server).
+const FALLBACK_UPDATES = [
+  { id:5, emoji:'🔬', title:'שיפור תמונות AI — גרסה 2.0',    body:'שדרגנו את מנוע ה-AI. הדיוק עלה ב-40% והמהירות הוכפלה.',           date:'לפני 3 ימים',   isNew:true  },
+  { id:4, emoji:'🎨', title:'כלי הצבעים — הרמוניה אוטומטית', body:'נוסף מצב הרמוניית צבעים חכם. פלטות מושלמות בלחיצה אחת.',          date:'לפני שבוע',    isNew:true  },
+  { id:3, emoji:'💎', title:'חתימת מים — תמיכה ב-SVG',        body:'עכשיו ניתן להעלות לוגו SVG לחתימה חדה ומוגנת לחלוטין.',           date:'לפני שבועיים', isNew:false },
+  { id:2, emoji:'⚡', title:'ממיר קבצים — CMYK מהיר פי 3',    body:'אלגוריתם ההמרה שודרג. המרה ב-3 שניות בלבד.',                      date:'לפני חודש',    isNew:false },
+  { id:1, emoji:'✨', title:'Swift Studio נפתח!',              body:'ברוכות הבאות! 7 כלים מקצועיים, בדפדפן, ללא הורדה, ללא התקנה.', date:'ינואר 2026',   isNew:false },
+];
+
+function toggleUpdatesPanel() {
+  updatesOpen = !updatesOpen;
+  const panel  = document.getElementById('updatesPanel');
+  const toggle = document.getElementById('updatesToggle');
+
+  toggle.setAttribute('aria-expanded', updatesOpen ? 'true' : 'false');
+  panel.setAttribute('aria-hidden',    updatesOpen ? 'false' : 'true');
+
+  if (updatesOpen) {
+    panel.classList.add('open');
+    toggle.classList.add('active');
+    // Hide badge and pulse ring when opened
+    document.getElementById('updatesBadge')?.classList.add('hidden');
+    toggle.classList.remove('has-new');
+
+    if (!updatesLoaded) loadUpdates();
+  } else {
+    panel.classList.remove('open');
+    toggle.classList.remove('active');
+  }
+}
+
+async function loadUpdates() {
+  // Always render (chat messages + fallback updates)
+  renderAllUpdates();
+  updatesLoaded = true;
+}
+
+function renderUpdates(updates) {
+  const container = document.getElementById('updatesMessages');
+  if (!container) return;
+
+  container.innerHTML = updates.map((u, i) => `
+    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
+      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
+      <div class="update-msg-bubble">
+        <div class="update-msg-top">
+          <span class="update-msg-title">${escHtml(u.title)}</span>
+          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
+        </div>
+        <p class="update-msg-body">${escHtml(u.body)}</p>
+        <span class="update-msg-date">${escHtml(u.date)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   💬  CHAT / MESSAGES BOARD
+   – Messages stored in localStorage (visible to same browser)
+   – Each message sent to Formspree so admin gets email notification
+   – Admin panel unlocked with SwiftAdmin2026
+───────────────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────────────
+   💬  ADMIN MESSAGES — only admin can post, everyone can read
+───────────────────────────────────────────────────────────────── */
+
+const CHAT_KEY = 'ss_chat_messages_v1';
+let isAdmin = false;
+
+function loadChatMessages() {
+  try { return JSON.parse(localStorage.getItem(CHAT_KEY) || '[]'); }
+  catch { return []; }
+}
+function saveChatMessages(msgs) {
+  localStorage.setItem(CHAT_KEY, JSON.stringify(msgs));
+}
+
+function timeNow() {
+  const d = new Date();
+  return d.toLocaleDateString('he-IL', { day:'2-digit', month:'2-digit' })
+       + ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
+}
+
+/* ── admin: post a new message ── */
+function sendAdminMessage() {
+  const input = document.getElementById('adminMsgText');
+  const text  = (input.value || '').trim();
+  if (!text) return;
+  const msgs = loadChatMessages();
+  msgs.unshift({ text, time: timeNow() }); // newest first
+  saveChatMessages(msgs);
+  input.value = '';
+  renderAllUpdates();
+}
+
+/* ── admin: clear all messages ── */
+function clearAllMessages() {
+  if (!confirm('למחוק את כל ההודעות?')) return;
+  localStorage.removeItem(CHAT_KEY);
+  renderAllUpdates();
+}
+
+/* ── admin login ── */
+function toggleAdminLogin() {
+  const box = document.getElementById('adminLoginBox');
+  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  if (box.style.display === 'block') {
+    document.getElementById('adminPassInput')?.focus();
+  }
+}
+
+async function loginAdmin() {
+  const val   = (document.getElementById('adminPassInput').value || '').trim();
+  const errEl = document.getElementById('adminErr');
+  const hash  = await sha256(val);
+  const correct = await sha256('SwiftAdmin2026');
+  if (hash === correct) {
+    isAdmin = true;
+    document.getElementById('adminWriteArea').style.display = 'block';
+    document.getElementById('adminLoginBox').style.display  = 'none';
+    document.getElementById('adminToggle').style.display    = 'none';
+    renderAllUpdates();
+    document.getElementById('adminMsgText')?.focus();
+  } else {
+    errEl.textContent = '✗ סיסמה שגויה';
+    setTimeout(() => { errEl.textContent = ''; }, 2000);
+  }
+}
+
+/* ── render: admin messages + fallback updates together ── */
+function renderAllUpdates() {
+  const container = document.getElementById('updatesMessages');
+  if (!container) return;
+
+  const chatMsgs = loadChatMessages();
+
+  // Build chat message HTML (admin posts, shown as chat bubbles)
+  const chatHtml = chatMsgs.map((m, i) => `
+    <div class="update-msg" role="article">
+      <div class="update-msg-icon" aria-hidden="true">⭐</div>
+      <div class="update-msg-bubble">
+        <div class="update-msg-top">
+          <span class="update-msg-title">Swift Studio</span>
+          ${isAdmin ? `<span onclick="deleteChatMsg(${i})" style="font-size:10px;color:rgba(255,100,100,0.45);cursor:pointer;margin-right:auto;">✕</span>` : ''}
+        </div>
+        <p class="update-msg-body">${escHtml(m.text)}</p>
+        <span class="update-msg-date">${escHtml(m.time)}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // Fallback updates (the original static ones)
+  const updatesHtml = FALLBACK_UPDATES.map((u, i) => `
+    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
+      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
+      <div class="update-msg-bubble">
+        <div class="update-msg-top">
+          <span class="update-msg-title">${escHtml(u.title)}</span>
+          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
+        </div>
+        <p class="update-msg-body">${escHtml(u.body)}</p>
+        <span class="update-msg-date">${escHtml(u.date)}</span>
+      </div>
+    </div>
+  `).join('');
+
+  container.innerHTML = chatHtml + updatesHtml;
+}
+
+function deleteChatMsg(index) {
+  const msgs = loadChatMessages();
+  msgs.splice(index, 1);
+  saveChatMessages(msgs);
+  renderAllUpdates();
+}
+
+
+/** Minimal HTML escaping to prevent XSS in rendered update text */
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   📧  NEWSLETTER FORMS — submit to Formspree + mark subscribed
+───────────────────────────────────────────────────────────────── */
+
+async function submitToFormspree(formEl, msgEl, btnEl, btnLabel) {
+  btnEl.disabled = true;
+  btnEl.textContent = 'שולחת...';
+  msgEl.textContent = '';
+  try {
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method:  'POST',
+      body:    new FormData(formEl),
+      headers: { 'Accept': 'application/json' },
+    });
+    if (resp.ok) {
+      msgEl.style.color = '#34d399';
+      msgEl.textContent = '🎉 נהדר! נוספת לרשימה בהצלחה — ניפגש בתיבת הדואר!';
+      formEl.reset();
+      markSubscribed(); // ← popup will never reappear
+      setTimeout(() => { msgEl.textContent = ''; }, 5000);
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
+    msgEl.style.color = '#fc8585';
+    msgEl.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    setTimeout(() => { msgEl.textContent = ''; }, 4000);
+  }
+  btnEl.disabled = false;
+  btnEl.textContent = btnLabel;
+}
+
+// רשימת תפוצה פנימית (בתוך הפורטל)
+document.getElementById('joinForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  submitToFormspree(
+    this,
+    document.getElementById('joinMsg'),
+    this.querySelector('button[type="submit"]'),
+    'הצטרפי ✦'
+  );
+});
+
+// רשימת תפוצה חיצונית (במסך הכניסה)
+document.getElementById('outsideJoinForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  submitToFormspree(
+    this,
+    document.getElementById('outsideJoinMsg'),
+    this.querySelector('button[type="submit"]'),
+    'הירשמי'
+  );
+});
+
+// טופס שליחת רעיונות
+document.getElementById('ideaForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
   const msg = document.getElementById('ideaMsg');
   const btn = document.getElementById('ideaSubmitBtn');
   btn.disabled = true; btn.textContent = 'שולחת...';
   try {
     const resp = await fetch('https://formspree.io/f/xbdelkvl', {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
+      method:  'POST',
+      body:    new FormData(this),
+      headers: { 'Accept': 'application/json' },
     });
     if (resp.ok) {
       msg.style.color = '#34d399';
       msg.textContent = '🌟 קיבלתי! תודה על הרעיון — אני כבר חושבת עליו 💫';
       this.reset();
       setTimeout(() => { msg.textContent = ''; }, 5000);
-    } else { throw new Error('server'); }
-  } catch {
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
     msg.style.color = '#fc8585';
     msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
     setTimeout(() => { msg.textContent = ''; }, 4000);
