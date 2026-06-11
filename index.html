@@ -890,25 +890,19 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
 
 <body class="locked">
 
-<!-- ════ PEEK BAR ════ -->
 <div id="peekStatusNotice">
   <span>👀 את נמצאת כרגע ב<b>מצב הצצה בלבד</b>. כדי להפעיל ולפתוח את הכלים יש להזין קוד גישה.</span>
   <button class="peek-return-btn" onclick="lockPortalForcefully()">חזרה למסך הנעילה 🔒</button>
 </div>
 
-<!-- ════ BACKGROUND ════ -->
 <div class="bg-canvas">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
 
-<!-- ════════════════════════════════════════════════
-     ✦ SMART NEWSLETTER POPUP (shows once per week)
-════════════════════════════════════════════════ -->
 <div id="nlPopup" class="nl-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="nlPopupTitle">
   <div class="nl-popup-card">
-    <!-- Sparkles (decorative, aria-hidden) -->
     <span class="nl-sparkle" aria-hidden="true">✦</span>
     <span class="nl-sparkle" aria-hidden="true">✧</span>
     <span class="nl-sparkle" aria-hidden="true">✦</span>
@@ -944,6 +938,15 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     <form class="nl-popup-form" id="nlPopupForm" novalidate>
       <input
         class="nl-email-input"
+        type="text"
+        id="nlNameInput"
+        name="name"
+        placeholder="השם שלך"
+        required
+        aria-label="שם"
+      >
+      <input
+        class="nl-email-input"
         type="email"
         id="nlEmailInput"
         name="email"
@@ -964,7 +967,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   </div>
 </div>
 
-<!-- ════ LOGIN OVERLAY ════ -->
 <div id="loginOverlay">
   <div class="login-wrap">
 
@@ -1012,6 +1014,7 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
       <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה — קבלי עדכונים על כלים חדשים, טיפים מקצועיים, שיתופים מעוררי השראה ומבצעים בלעדיים:</p>
       <form id="outsideJoinForm" novalidate style="display:contents;">
         <div class="outside-input-row">
+          <input class="outside-email-in" type="text" name="name" placeholder="השם שלך" required>
           <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required autocomplete="email">
           <button class="outside-submit-btn" type="submit">הירשמי</button>
         </div>
@@ -1026,7 +1029,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   </div>
 </div>
 
-<!-- ════ MAIN PORTAL ════ -->
 <div id="mainPortal">
 
   <header class="hero">
@@ -1157,10 +1159,10 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
         <div class="perk"><div class="perk-dot"></div> עדכונים ראשונה</div>
         <div class="perk"><div class="perk-dot"></div> כלים חדשים בלעדיים</div>
         <div class="perk"><div class="perk-dot"></div> טיפים ושיתופים מעוררי השראה</div>
-        <div class="perk"><div class="perk-dot"></div> ללא ספאם</div>
       </div>
       <form id="joinForm" novalidate style="display:contents;">
         <div class="join-input-row">
+          <input class="join-email-in" type="text" name="name" placeholder="השם שלך" required>
           <input class="join-email-in" type="email" name="email" id="joinEmailInput" placeholder="your@email.com" required autocomplete="email">
           <input type="hidden" name="_subject" value="הרשמה חדשה לרשימה — Swift Studio">
           <input type="hidden" name="source" value="join-section">
@@ -1217,13 +1219,7 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     </button>
   </div>
 
-</div><!-- /mainPortal -->
-
-
-<!-- ════════════════════════════════════════════════
-     ✦ FLOATING UPDATES PANEL
-════════════════════════════════════════════════ -->
-<button
+</div><button
   id="updatesToggle"
   class="updates-toggle-btn has-new"
   onclick="toggleUpdatesPanel()"
@@ -1232,7 +1228,7 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   aria-controls="updatesPanel"
 >
   ✦
-  <span class="updates-badge" id="updatesBadge" aria-label="2 עדכונים חדשים">2</span>
+  <span class="updates-badge" id="updatesBadge" aria-label="עדכונים חדשים"></span>
 </button>
 
 <div
@@ -1267,7 +1263,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     </div>
   </div>
 
-  <!-- Admin write area — shown only after admin login -->
   <div id="adminWriteArea" style="display:none; padding:10px 14px; border-top:1px solid rgba(255,255,255,0.05);">
     <div style="display:flex; gap:8px;">
       <input id="adminMsgText" type="text" placeholder="כתבי עדכון חדש..." dir="rtl"
@@ -1287,7 +1282,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     </div>
   </div>
 
-  <!-- Admin login — tiny dots at bottom -->
   <div class="updates-panel-footer">
     <span id="adminToggle" onclick="toggleAdminLogin()"
       style="font-size:11px; color:rgba(255,255,255,0.12); cursor:pointer; letter-spacing:3px; user-select:none;">· · ·</span>
@@ -1307,9 +1301,46 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
 </div>
 
 
-<!-- ════════════════════════════════════════════════
-     ✦ JAVASCRIPT
-════════════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAEgSIzFsFHUyhuwxmY0N0JQVJuh9HTCZU",
+    authDomain: "swift-studio-chat.firebaseapp.com",
+    databaseURL: "https://swift-studio-chat-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "swift-studio-chat",
+    storageBucket: "swift-studio-chat.firebasestorage.app",
+    messagingSenderId: "45340542145",
+    appId: "1:45340542145:web:6c3ade3cb7c95b71890040",
+    measurementId: "G-KJ4B9J0CTK"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const msgsRef = ref(db, 'messages');
+
+  window.chatMessagesCache = [];
+
+  // Listen for changes from Firebase
+  onValue(msgsRef, (snapshot) => {
+    const data = snapshot.val();
+    let msgs = [];
+    if (data) {
+      msgs = Object.keys(data).map(k => ({ id: k, ...data[k] })).reverse();
+    }
+    window.chatMessagesCache = msgs;
+    if (typeof window.renderAllUpdates === 'function') {
+      window.renderAllUpdates();
+    }
+  });
+
+  // Expose global methods for the standard script to use
+  window.firebaseSendMsg = function(text, time) { push(msgsRef, { text, time }); };
+  window.firebaseClearAll = function() { remove(msgsRef); };
+  window.firebaseDeleteMsg = function(id) { remove(ref(db, 'messages/' + id)); };
+</script>
+
 <script>
 /* ─────────────────────────────────────────────────────────────────
    STORAGE KEYS
@@ -1439,7 +1470,7 @@ function initNlPopup() {
       // Record the timestamp so it won't show again for 7 days
       localStorage.setItem(KEYS.popupShown, Date.now().toString());
       // Trap focus inside popup
-      document.getElementById('nlEmailInput')?.focus();
+      document.getElementById('nlNameInput')?.focus();
     }
   }, 3500);
 }
@@ -1480,6 +1511,11 @@ document.addEventListener('keydown', e => {
 // Popup form submit
 document.getElementById('nlPopupForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
+  if (!this.checkValidity()) {
+    this.reportValidity();
+    return;
+  }
+  
   const email = document.getElementById('nlEmailInput').value.trim();
   const msg   = document.getElementById('nlPopupMsg');
   const btn   = document.getElementById('nlSubmitBtn');
@@ -1491,8 +1527,7 @@ document.getElementById('nlPopupForm')?.addEventListener('submit', async functio
   msg.textContent = '';
 
   try {
-    const fd = new FormData();
-    fd.append('email', email);
+    const fd = new FormData(this);
     fd.append('_subject', 'הרשמה לרשימת תפוצה — Swift Studio (popup)');
     fd.append('source', 'popup');
 
@@ -1520,21 +1555,12 @@ document.getElementById('nlPopupForm')?.addEventListener('submit', async functio
 
 
 /* ─────────────────────────────────────────────────────────────────
-   📢  FLOATING UPDATES PANEL
+   📢  FLOATING UPDATES PANEL (FIREBASE CONNECTED)
 ───────────────────────────────────────────────────────────────── */
 
 let updatesOpen   = false;
 let updatesLoaded = false;
-
-// Fallback data used when the backend is unavailable
-// (e.g. running as a static HTML file without a server).
-const FALLBACK_UPDATES = [
-  { id:5, emoji:'🔬', title:'שיפור תמונות AI — גרסה 2.0',    body:'שדרגנו את מנוע ה-AI. הדיוק עלה ב-40% והמהירות הוכפלה.',           date:'לפני 3 ימים',   isNew:true  },
-  { id:4, emoji:'🎨', title:'כלי הצבעים — הרמוניה אוטומטית', body:'נוסף מצב הרמוניית צבעים חכם. פלטות מושלמות בלחיצה אחת.',          date:'לפני שבוע',    isNew:true  },
-  { id:3, emoji:'💎', title:'חתימת מים — תמיכה ב-SVG',        body:'עכשיו ניתן להעלות לוגו SVG לחתימה חדה ומוגנת לחלוטין.',           date:'לפני שבועיים', isNew:false },
-  { id:2, emoji:'⚡', title:'ממיר קבצים — CMYK מהיר פי 3',    body:'אלגוריתם ההמרה שודרג. המרה ב-3 שניות בלבד.',                      date:'לפני חודש',    isNew:false },
-  { id:1, emoji:'✨', title:'Swift Studio נפתח!',              body:'ברוכות הבאות! 7 כלים מקצועיים, בדפדפן, ללא הורדה, ללא התקנה.', date:'ינואר 2026',   isNew:false },
-];
+let isAdmin = false;
 
 function toggleUpdatesPanel() {
   updatesOpen = !updatesOpen;
@@ -1559,50 +1585,10 @@ function toggleUpdatesPanel() {
 }
 
 async function loadUpdates() {
-  // Always render (chat messages + fallback updates)
-  renderAllUpdates();
+  if (typeof window.renderAllUpdates === 'function') {
+    window.renderAllUpdates();
+  }
   updatesLoaded = true;
-}
-
-function renderUpdates(updates) {
-  const container = document.getElementById('updatesMessages');
-  if (!container) return;
-
-  container.innerHTML = updates.map((u, i) => `
-    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
-      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
-      <div class="update-msg-bubble">
-        <div class="update-msg-top">
-          <span class="update-msg-title">${escHtml(u.title)}</span>
-          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
-        </div>
-        <p class="update-msg-body">${escHtml(u.body)}</p>
-        <span class="update-msg-date">${escHtml(u.date)}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   💬  CHAT / MESSAGES BOARD
-   – Messages stored in localStorage (visible to same browser)
-   – Each message sent to Formspree so admin gets email notification
-   – Admin panel unlocked with SwiftAdmin2026
-───────────────────────────────────────────────────────────────── */
-
-/* ─────────────────────────────────────────────────────────────────
-   💬  ADMIN MESSAGES — only admin can post, everyone can read
-───────────────────────────────────────────────────────────────── */
-
-const CHAT_KEY = 'ss_chat_messages_v1';
-let isAdmin = false;
-
-function loadChatMessages() {
-  try { return JSON.parse(localStorage.getItem(CHAT_KEY) || '[]'); }
-  catch { return []; }
-}
-function saveChatMessages(msgs) {
-  localStorage.setItem(CHAT_KEY, JSON.stringify(msgs));
 }
 
 function timeNow() {
@@ -1616,18 +1602,25 @@ function sendAdminMessage() {
   const input = document.getElementById('adminMsgText');
   const text  = (input.value || '').trim();
   if (!text) return;
-  const msgs = loadChatMessages();
-  msgs.unshift({ text, time: timeNow() }); // newest first
-  saveChatMessages(msgs);
+  
+  if (window.firebaseSendMsg) {
+    window.firebaseSendMsg(text, timeNow());
+  }
   input.value = '';
-  renderAllUpdates();
 }
 
 /* ── admin: clear all messages ── */
 function clearAllMessages() {
   if (!confirm('למחוק את כל ההודעות?')) return;
-  localStorage.removeItem(CHAT_KEY);
-  renderAllUpdates();
+  if (window.firebaseClearAll) {
+    window.firebaseClearAll();
+  }
+}
+
+function deleteChatMsg(id) {
+  if (window.firebaseDeleteMsg) {
+    window.firebaseDeleteMsg(id);
+  }
 }
 
 /* ── admin login ── */
@@ -1644,12 +1637,15 @@ async function loginAdmin() {
   const errEl = document.getElementById('adminErr');
   const hash  = await sha256(val);
   const correct = await sha256('SwiftAdmin2026');
+  
   if (hash === correct) {
     isAdmin = true;
     document.getElementById('adminWriteArea').style.display = 'block';
     document.getElementById('adminLoginBox').style.display  = 'none';
     document.getElementById('adminToggle').style.display    = 'none';
-    renderAllUpdates();
+    if (typeof window.renderAllUpdates === 'function') {
+      window.renderAllUpdates();
+    }
     document.getElementById('adminMsgText')?.focus();
   } else {
     errEl.textContent = '✗ סיסמה שגויה';
@@ -1657,21 +1653,25 @@ async function loginAdmin() {
   }
 }
 
-/* ── render: admin messages + fallback updates together ── */
-function renderAllUpdates() {
+/* ── render: chat messages from Firebase ── */
+window.renderAllUpdates = function() {
   const container = document.getElementById('updatesMessages');
   if (!container) return;
 
-  const chatMsgs = loadChatMessages();
+  const chatMsgs = window.chatMessagesCache || [];
+  
+  if (chatMsgs.length === 0) {
+    container.innerHTML = '<div style="text-align:center; padding: 20px; font-size: 13px; color: var(--text-dim);">אין עדכונים כרגע...</div>';
+    return;
+  }
 
-  // Build chat message HTML (admin posts, shown as chat bubbles)
-  const chatHtml = chatMsgs.map((m, i) => `
+  const chatHtml = chatMsgs.map((m) => `
     <div class="update-msg" role="article">
       <div class="update-msg-icon" aria-hidden="true">⭐</div>
       <div class="update-msg-bubble">
         <div class="update-msg-top">
           <span class="update-msg-title">Swift Studio</span>
-          ${isAdmin ? `<span onclick="deleteChatMsg(${i})" style="font-size:10px;color:rgba(255,100,100,0.45);cursor:pointer;margin-right:auto;">✕</span>` : ''}
+          ${isAdmin ? `<span onclick="deleteChatMsg('${m.id}')" style="font-size:10px;color:rgba(255,100,100,0.45);cursor:pointer;margin-right:auto;">✕</span>` : ''}
         </div>
         <p class="update-msg-body">${escHtml(m.text)}</p>
         <span class="update-msg-date">${escHtml(m.time)}</span>
@@ -1679,31 +1679,8 @@ function renderAllUpdates() {
     </div>
   `).join('');
 
-  // Fallback updates (the original static ones)
-  const updatesHtml = FALLBACK_UPDATES.map((u, i) => `
-    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
-      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
-      <div class="update-msg-bubble">
-        <div class="update-msg-top">
-          <span class="update-msg-title">${escHtml(u.title)}</span>
-          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
-        </div>
-        <p class="update-msg-body">${escHtml(u.body)}</p>
-        <span class="update-msg-date">${escHtml(u.date)}</span>
-      </div>
-    </div>
-  `).join('');
-
-  container.innerHTML = chatHtml + updatesHtml;
+  container.innerHTML = chatHtml;
 }
-
-function deleteChatMsg(index) {
-  const msgs = loadChatMessages();
-  msgs.splice(index, 1);
-  saveChatMessages(msgs);
-  renderAllUpdates();
-}
-
 
 /** Minimal HTML escaping to prevent XSS in rendered update text */
 function escHtml(str) {
@@ -1720,6 +1697,11 @@ function escHtml(str) {
 ───────────────────────────────────────────────────────────────── */
 
 async function submitToFormspree(formEl, msgEl, btnEl, btnLabel) {
+  if (!formEl.checkValidity()) {
+    formEl.reportValidity();
+    return;
+  }
+
   btnEl.disabled = true;
   btnEl.textContent = 'שולחת...';
   msgEl.textContent = '';
