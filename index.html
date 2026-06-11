@@ -118,8 +118,6 @@ body.peeking  #mainPortal { display: block !important; }
 .l-pricing-headline { font-size:22px; font-weight:900; background:linear-gradient(90deg,#fff 0%,#f37873 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:6px; }
 .l-pricing-subhead { font-size:14px; color:#cbd5e1; font-weight:400; margin-bottom:16px; line-height:1.6; }
 .l-pricing-badge { display:inline-block; background:rgba(214,76,120,0.12); border:1px solid rgba(214,76,120,0.25); color:#f37873; font-size:12px; font-weight:700; padding:6px 16px; border-radius:30px; margin-bottom:16px; }
-.l-copy-btn { display:inline-flex; align-items:center; gap:10px; padding:14px 22px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; color:#fff; font-size:14px; font-weight:700; cursor:pointer; transition:all 0.2s; width:100%; justify-content:center; font-family:'Rubik',sans-serif; }
-.l-copy-btn:hover { background:#fff; color:#04060f; border-color:#fff; }
 
 .login-peek-card { text-align:center; padding:20px; }
 .peek-action-btn { width:100%; padding:15px 20px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.08); border-radius:16px; color:#cbd5e1; font-family:'Rubik',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:all 0.25s; }
@@ -132,6 +130,64 @@ body.peeking  #mainPortal { display: block !important; }
 
 .login-newsletter-card { text-align:center; }
 .outside-join-title { font-size:13px; font-weight:500; color:#cbd5e1; margin-bottom:14px; text-align:right; }
+
+/* ── FIX FOR CUT-OFF BUTTONS & CONTAINER ── */
+.join-btn-fix, 
+#outsideJoinForm button[type="submit"] { 
+  display: inline-block;
+  padding: 12px 24px;      
+  margin-top: 8px;         
+  line-height: 1.4;        
+  box-sizing: border-box;  
+  vertical-align: middle;
+}
+
+#outsideJoinForm, .price-inquiry-box {
+  height: auto !important;        
+  overflow: visible !important;   
+  padding-bottom: 15px;           
+}
+
+/* תיקון גלישה של טפסים */
+.join-input-row, .outside-input-row { 
+  display:flex; 
+  flex-wrap: wrap; /* תוספת למניעת חריגת כפתורים */
+  gap:12px; 
+  max-width:480px; 
+  margin:0 auto 14px; 
+}
+.join-email-in, .outside-email-in { 
+  flex: 1 1 150px; /* תוספת לגמישות */
+  background:rgba(255,255,255,0.04); 
+  border:1px solid rgba(255,255,255,0.08); 
+  border-radius:14px; 
+  padding:15px 20px; 
+  color:white; 
+  font-size:14px; 
+  font-family:'Rubik',sans-serif; 
+  outline:none; 
+  transition:all 0.3s; 
+  direction:ltr; 
+}
+.join-email-in::placeholder, .outside-email-in::placeholder { color:rgba(255,255,255,0.25); text-align: right; direction: rtl; }
+.join-email-in:focus, .outside-email-in:focus { border-color:rgba(214,76,120,0.5); box-shadow:0 0 0 3px rgba(214,76,120,0.1); background:rgba(255,255,255,0.06); }
+.join-submit-btn, .outside-submit-btn { 
+  flex: 1 1 auto; /* התאמה לשורת הפלקס */
+  padding:15px 28px; 
+  background:var(--grad); 
+  border:none; 
+  border-radius:14px; 
+  color:white; 
+  font-family:'Rubik',sans-serif; 
+  font-size:14px; 
+  font-weight:800; 
+  cursor:pointer; 
+  transition:all 0.3s; 
+  white-space:normal; /* שונה מ-nowrap כדי לאפשר גלישת שורות במידת הצורך */
+  letter-spacing:0.3px; 
+}
+.join-submit-btn:hover, .outside-submit-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(214,76,120,0.4); }
+.join-msg, .outside-msg { font-size:13px; font-weight:600; min-height:18px; transition:all 0.3s; margin-top:8px; }
 
 /* ── PEEK BAR ── */
 #peekStatusNotice { position:fixed; top:0; left:0; right:0; height:50px; background:linear-gradient(90deg,#d64c78,#25529a); z-index:99999; display:none; align-items:center; justify-content:space-between; padding:0 24px; font-size:14px; font-weight:600; color:white; box-shadow:0 4px 25px rgba(0,0,0,0.5); backdrop-filter:blur(10px); }
@@ -220,13 +276,6 @@ body.unlocked .tool-card:hover .cta-arrow { transform:translateX(-5px); }
 .join-perks { display:flex; justify-content:center; gap:20px; margin-bottom:34px; flex-wrap:wrap; }
 .perk { display:flex; align-items:center; gap:7px; padding:8px 16px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:30px; font-size:13px; color:var(--text-dim); font-weight:500; }
 .perk-dot { width:6px; height:6px; border-radius:50%; background:var(--grad); flex-shrink:0; }
-.join-input-row, .outside-input-row { display:flex; gap:12px; max-width:480px; margin:0 auto 14px; }
-.join-email-in, .outside-email-in { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:15px 20px; color:white; font-size:14px; font-family:'Rubik',sans-serif; outline:none; transition:all 0.3s; direction:ltr; }
-.join-email-in::placeholder, .outside-email-in::placeholder { color:rgba(255,255,255,0.25); }
-.join-email-in:focus, .outside-email-in:focus { border-color:rgba(214,76,120,0.5); box-shadow:0 0 0 3px rgba(214,76,120,0.1); background:rgba(255,255,255,0.06); }
-.join-submit-btn, .outside-submit-btn { padding:15px 28px; background:var(--grad); border:none; border-radius:14px; color:white; font-family:'Rubik',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all 0.3s; white-space:nowrap; letter-spacing:0.3px; }
-.join-submit-btn:hover, .outside-submit-btn:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(214,76,120,0.4); }
-.join-msg, .outside-msg { font-size:13px; font-weight:600; min-height:18px; transition:all 0.3s; margin-top:8px; }
 
 /* ────── IDEA SECTION ────── */
 .idea-section { max-width:760px; margin:0 auto; padding:0 44px 80px; }
@@ -267,11 +316,10 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
 .reset-btn:hover { background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.3); color:#fc8585; }
 
 /* ════════════════════════════════════════════════════════
-   ✦  FLOATING UPDATES PANEL (Chat-style)
+   ✦  FLOATING CONTACT PANEL
 ════════════════════════════════════════════════════════ */
 
-/* ── Toggle Button ── */
-.updates-toggle-btn {
+.contact-toggle-btn {
   position: fixed;
   bottom: 28px;
   right: 28px;
@@ -285,67 +333,21 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 23px;
+  font-size: 26px;
   box-shadow: 0 8px 32px rgba(214,76,120,0.45), 0 4px 16px rgba(0,0,0,0.35);
   transition: transform 0.35s cubic-bezier(.16,1,.3,1), box-shadow 0.35s;
   color: white;
 }
-.updates-toggle-btn:hover {
+.contact-toggle-btn:hover {
   transform: scale(1.1) translateY(-2px);
   box-shadow: 0 14px 44px rgba(214,76,120,0.55);
 }
-.updates-toggle-btn.active {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--pink) 100%);
-}
 
-/* Pulse ring — only visible when there are unread updates */
-.updates-toggle-btn.has-new::before {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 2px solid rgba(214,76,120,0.5);
-  animation: upd-pulse 2.4s ease-out infinite;
-}
-@keyframes upd-pulse {
-  0%   { transform: scale(0.9); opacity: 0.9; }
-  70%  { transform: scale(1.25); opacity: 0; }
-  100% { opacity: 0; }
-}
-
-/* Badge */
-.updates-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  background: #ef4444;
-  border: 2px solid var(--deep);
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 800;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Rubik', sans-serif;
-  animation: badge-pop 0.4s cubic-bezier(.16,1,.3,1);
-}
-@keyframes badge-pop {
-  from { transform: scale(0); }
-  to   { transform: scale(1); }
-}
-.updates-badge.hidden { display: none; }
-
-/* ── Panel ── */
-.updates-panel {
+.contact-panel {
   position: fixed;
   bottom: 100px;
   right: 28px;
   width: 340px;
-  height: 470px;
   background: rgba(7, 10, 22, 0.97);
   border: 1px solid rgba(214,76,120,0.18);
   border-radius: 24px;
@@ -358,7 +360,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     0 0 0 1px rgba(255,255,255,0.04),
     inset 0 1px 0 rgba(255,255,255,0.04);
   backdrop-filter: blur(24px);
-  /* Start state: hidden below */
   transform: translateY(24px) scale(0.96);
   opacity: 0;
   pointer-events: none;
@@ -367,74 +368,26 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     opacity   0.32s ease;
   transform-origin: bottom right;
 }
-.updates-panel.open {
+.contact-panel.open {
   transform: translateY(0) scale(1);
   opacity: 1;
   pointer-events: all;
 }
 
-/* Header */
-.updates-panel-header {
+.contact-panel-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 16px 13px;
+  padding: 16px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
   background: linear-gradient(135deg, rgba(214,76,120,0.07), rgba(37,82,154,0.07));
-  flex-shrink: 0;
-  position: relative;
 }
-.updates-panel-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(214,76,120,0.3), rgba(37,82,154,0.3), transparent);
-}
-.updates-header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.updates-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 13px;
-  background: linear-gradient(135deg, var(--pink), var(--blue));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Dancing Script', cursive;
-  font-size: 20px;
+.contact-header-name {
+  font-size: 15px;
   font-weight: 700;
   color: white;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(214,76,120,0.35);
 }
-.updates-header-info { display: flex; flex-direction: column; gap: 2px; }
-.updates-header-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: white;
-  line-height: 1;
-}
-.updates-header-status {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: #34d399;
-  font-weight: 500;
-}
-.status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #34d399;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-.updates-close-btn {
+.contact-close-btn {
   width: 30px;
   height: 30px;
   background: rgba(255,255,255,0.05);
@@ -442,139 +395,18 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   border-radius: 9px;
   cursor: pointer;
   color: var(--text-dim);
-  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
-  font-family: 'Rubik', sans-serif;
-  line-height: 1;
-  flex-shrink: 0;
 }
-.updates-close-btn:hover {
+.contact-close-btn:hover {
   background: rgba(214,76,120,0.12);
   border-color: rgba(214,76,120,0.25);
   color: white;
 }
-
-/* Messages area */
-.updates-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.updates-messages::-webkit-scrollbar { width: 3px; }
-.updates-messages::-webkit-scrollbar-track { background: transparent; }
-.updates-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
-
-/* Individual message bubble */
-.update-msg {
-  display: flex;
-  gap: 9px;
-  align-items: flex-start;
-  animation: msg-slide-in 0.4s cubic-bezier(.16,1,.3,1) both;
-}
-@keyframes msg-slide-in {
-  from { opacity: 0; transform: translateX(12px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-.update-msg-icon {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  margin-top: 2px;
-}
-
-.update-msg-bubble {
-  flex: 1;
-  min-width: 0;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 4px 16px 16px 16px;
-  padding: 10px 12px 9px;
-}
-
-.update-msg-top {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-.update-msg-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #e8eeff;
-  flex: 1;
-  line-height: 1.3;
-}
-.update-new-tag {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-  padding: 2px 7px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, var(--pink), #7b5cf6);
-  color: white;
-  text-transform: uppercase;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-.update-msg-body {
-  font-size: 12px;
-  color: var(--text-dim);
-  line-height: 1.6;
-  margin: 0 0 6px;
-}
-.update-msg-date {
-  font-size: 10px;
-  color: rgba(255,255,255,0.18);
-  font-weight: 500;
-}
-
-/* Loading state */
-.updates-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  gap: 10px;
-  color: var(--text-dim);
-  font-size: 13px;
-}
-.updates-loading-spinner {
-  width: 24px;
-  height: 24px;
-  border: 2px solid rgba(255,255,255,0.08);
-  border-top-color: var(--pink);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Footer */
-.updates-panel-footer {
-  padding: 10px 14px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  text-align: center;
-  flex-shrink: 0;
-}
-.updates-panel-footer p {
-  font-size: 10px;
-  color: rgba(255,255,255,0.15);
-  font-weight: 500;
-  letter-spacing: 0.3px;
+.contact-body {
+  padding: 20px;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -867,17 +699,18 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   .hero-logo { font-size: 62px; }
   .hero-headline { font-size: 26px; }
   .login-card-segment { padding: 24px 20px; }
-  .join-input-row, .outside-input-row, .idea-name-row { flex-direction: column; }
+  .idea-name-row { flex-direction: column; }
   .join-card { padding: 44px 28px 40px; }
   .idea-card { padding: 42px 28px 40px; }
-  /* Updates panel — full-width on mobile */
-  .updates-panel {
+  
+  .contact-panel {
     right: 12px;
     left: 12px;
     width: auto;
     bottom: 90px;
   }
-  .updates-toggle-btn { bottom: 20px; right: 20px; }
+  .contact-toggle-btn { bottom: 20px; right: 20px; }
+  
   /* Popup card padding reduction */
   .nl-popup-card { padding: 40px 22px 28px; }
   .nl-popup-title { font-size: 20px; }
@@ -890,25 +723,19 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
 
 <body class="locked">
 
-<!-- ════ PEEK BAR ════ -->
 <div id="peekStatusNotice">
   <span>👀 את נמצאת כרגע ב<b>מצב הצצה בלבד</b>. כדי להפעיל ולפתוח את הכלים יש להזין קוד גישה.</span>
   <button class="peek-return-btn" onclick="lockPortalForcefully()">חזרה למסך הנעילה 🔒</button>
 </div>
 
-<!-- ════ BACKGROUND ════ -->
 <div class="bg-canvas">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 </div>
 
-<!-- ════════════════════════════════════════════════
-     ✦ SMART NEWSLETTER POPUP (shows once per week)
-════════════════════════════════════════════════ -->
 <div id="nlPopup" class="nl-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="nlPopupTitle">
   <div class="nl-popup-card">
-    <!-- Sparkles (decorative, aria-hidden) -->
     <span class="nl-sparkle" aria-hidden="true">✦</span>
     <span class="nl-sparkle" aria-hidden="true">✧</span>
     <span class="nl-sparkle" aria-hidden="true">✦</span>
@@ -944,6 +771,15 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     <form class="nl-popup-form" id="nlPopupForm" novalidate>
       <input
         class="nl-email-input"
+        type="text"
+        id="nlNameInput"
+        name="name"
+        placeholder="השם שלך"
+        required
+        aria-label="שם"
+      >
+      <input
+        class="nl-email-input"
         type="email"
         id="nlEmailInput"
         name="email"
@@ -964,7 +800,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   </div>
 </div>
 
-<!-- ════ LOGIN OVERLAY ════ -->
 <div id="loginOverlay">
   <div class="login-wrap">
 
@@ -992,14 +827,32 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
       <p class="l-error" id="loginError" role="alert" aria-live="assertive"></p>
     </div>
 
-    <div class="login-card-segment login-pricing-card">
+    <div class="login-card-segment login-pricing-card price-inquiry-box">
       <div class="l-pricing-headline">דיל השקה מטורף</div>
       <div class="l-pricing-subhead">רכישה חד פעמית — כל 7 הכלים פתוחים לכל החיים ללא הגבלת שימוש.</div>
-      <div class="l-pricing-badge">✦ לקבלת כל הפרטים והמחיר — כתבי לי עכשיו ✦</div>
-      <button class="l-copy-btn" id="copyEmailBtn" onclick="copyEmailToClipboard()">
-        <span class="l-copy-icon">📋</span>
-        <span id="copyBtnText">SWIFT84529@GMAIL.COM</span>
-      </button>
+      <div class="l-pricing-badge">✦ מירי אני חייבת לדעת מה המחיר! ✦</div>
+      
+      <form id="priceInquiryForm" action="https://formspree.io/f/xbdelkvl" method="POST" style="text-align: right; margin-top: 15px;">
+        <input type="hidden" name="_subject" value="מירי אני חייבת לדעת מה המחיר!">
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="priceName" style="display: block; margin-bottom: 4px; font-weight: 500; color: #cbd5e1; font-size: 13px;">שם:</label>
+          <input type="text" id="priceName" name="שם" required placeholder="השם שלך" class="outside-email-in" style="width: 100%; box-sizing: border-box;">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="priceEmail" style="display: block; margin-bottom: 4px; font-weight: 500; color: #cbd5e1; font-size: 13px;">מייל:</label>
+          <input type="email" id="priceEmail" name="אימייל" required placeholder="כתובת המייל שלך" class="outside-email-in" style="width: 100%; box-sizing: border-box;">
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label for="priceMsg" style="display: block; margin-bottom: 4px; font-weight: 500; color: #cbd5e1; font-size: 13px;">יש לך עוד משהו להוסיף? (אופציונלי):</label>
+          <textarea id="priceMsg" name="הודעה נוספת" placeholder="תוכלי להוסיף כאן עוד מילים..." class="outside-email-in" style="width: 100%; box-sizing: border-box; min-height: 60px; resize: vertical; padding: 10px;"></textarea>
+        </div>
+        
+        <button type="submit" id="priceSubmitBtn" class="outside-submit-btn join-btn-fix" style="width: 100%;">שלחי ונחזור אליך בהקדם עם פרטי המחיר ✦</button>
+        <div id="priceFormMsg" style="margin-top: 10px; font-weight: 500; text-align: center; font-size: 13px;"></div>
+      </form>
     </div>
 
     <div class="login-card-segment login-peek-card">
@@ -1012,6 +865,7 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
       <p class="outside-join-title">✉️ הצטרפי לרשימת התפוצה — קבלי עדכונים על כלים חדשים, טיפים מקצועיים, שיתופים מעוררי השראה ומבצעים בלעדיים:</p>
       <form id="outsideJoinForm" novalidate style="display:contents;">
         <div class="outside-input-row">
+          <input class="outside-email-in" type="text" name="name" placeholder="השם שלך" required>
           <input class="outside-email-in" type="email" name="email" placeholder="your@email.com" required autocomplete="email">
           <button class="outside-submit-btn" type="submit">הירשמי</button>
         </div>
@@ -1026,7 +880,6 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
   </div>
 </div>
 
-<!-- ════ MAIN PORTAL ════ -->
 <div id="mainPortal">
 
   <header class="hero">
@@ -1157,10 +1010,10 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
         <div class="perk"><div class="perk-dot"></div> עדכונים ראשונה</div>
         <div class="perk"><div class="perk-dot"></div> כלים חדשים בלעדיים</div>
         <div class="perk"><div class="perk-dot"></div> טיפים ושיתופים מעוררי השראה</div>
-        <div class="perk"><div class="perk-dot"></div> ללא ספאם</div>
       </div>
       <form id="joinForm" novalidate style="display:contents;">
         <div class="join-input-row">
+          <input class="join-email-in" type="text" name="name" placeholder="השם שלך" required>
           <input class="join-email-in" type="email" name="email" id="joinEmailInput" placeholder="your@email.com" required autocomplete="email">
           <input type="hidden" name="_subject" value="הרשמה חדשה לרשימה — Swift Studio">
           <input type="hidden" name="source" value="join-section">
@@ -1217,99 +1070,49 @@ body.unlocked .reset-zone, body.peeking .reset-zone { display:block; }
     </button>
   </div>
 
-</div><!-- /mainPortal -->
+</div>
 
-
-<!-- ════════════════════════════════════════════════
-     ✦ FLOATING UPDATES PANEL
-════════════════════════════════════════════════ -->
 <button
-  id="updatesToggle"
-  class="updates-toggle-btn has-new"
-  onclick="toggleUpdatesPanel()"
-  aria-label="פתיחת חלון עדכוני הסטודיו"
+  id="contactToggle"
+  class="contact-toggle-btn"
+  onclick="toggleContactPanel()"
+  aria-label="שלחי לי הודעה"
   aria-expanded="false"
-  aria-controls="updatesPanel"
+  aria-controls="contactPanel"
 >
-  ✦
-  <span class="updates-badge" id="updatesBadge" aria-label="2 עדכונים חדשים">2</span>
+  ✉️
 </button>
 
 <div
-  id="updatesPanel"
-  class="updates-panel"
+  id="contactPanel"
+  class="contact-panel"
   role="complementary"
-  aria-label="עדכוני הסטודיו"
+  aria-label="טופס יצירת קשר"
   aria-hidden="true"
 >
-  <div class="updates-panel-header">
-    <div class="updates-header-left">
-      <div class="updates-avatar" aria-hidden="true">S</div>
-      <div class="updates-header-info">
-        <p class="updates-header-name">Swift Studio</p>
-        <div class="updates-header-status">
-          <span class="status-dot" aria-hidden="true"></span>
-          פעיל עכשיו
-        </div>
-      </div>
-    </div>
+  <div class="contact-panel-header">
+    <div class="contact-header-name">יש לך משהו לומר לי?</div>
     <button
-      class="updates-close-btn"
-      onclick="toggleUpdatesPanel()"
-      aria-label="סגירת חלון עדכונים"
+      class="contact-close-btn"
+      onclick="toggleContactPanel()"
+      aria-label="סגירת חלון הודעה"
     >✕</button>
   </div>
 
-  <div class="updates-messages" id="updatesMessages">
-    <div class="updates-loading" id="updatesLoading" aria-live="polite">
-      <div class="updates-loading-spinner" aria-hidden="true"></div>
-      <span>טוענת עדכונים...</span>
-    </div>
-  </div>
-
-  <!-- Admin write area — shown only after admin login -->
-  <div id="adminWriteArea" style="display:none; padding:10px 14px; border-top:1px solid rgba(255,255,255,0.05);">
-    <div style="display:flex; gap:8px;">
-      <input id="adminMsgText" type="text" placeholder="כתבי עדכון חדש..." dir="rtl"
-        style="flex:1; background:rgba(214,76,120,0.06); border:1px solid rgba(214,76,120,0.2); border-radius:10px; padding:9px 13px; color:white; font-size:13px; font-family:'Rubik',sans-serif; outline:none;"
-        onkeydown="if(event.key==='Enter') sendAdminMessage()">
-      <button onclick="sendAdminMessage()"
-        style="padding:9px 14px; border:none; border-radius:10px; background:linear-gradient(135deg,var(--pink),var(--blue)); color:white; font-family:'Rubik',sans-serif; font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap;">
-        ✦ שלח
-      </button>
-    </div>
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:7px;">
-      <span style="font-size:10px; color:var(--pink-lt); font-weight:600;">⭐ מחוברת כאדמין</span>
-      <button onclick="clearAllMessages()"
-        style="font-size:10px; color:rgba(255,100,100,0.5); background:none; border:none; cursor:pointer; font-family:'Rubik',sans-serif;">
-        🗑 נקי הכל
-      </button>
-    </div>
-  </div>
-
-  <!-- Admin login — tiny dots at bottom -->
-  <div class="updates-panel-footer">
-    <span id="adminToggle" onclick="toggleAdminLogin()"
-      style="font-size:11px; color:rgba(255,255,255,0.12); cursor:pointer; letter-spacing:3px; user-select:none;">· · ·</span>
-    <div id="adminLoginBox" style="display:none; margin-top:10px;">
-      <div style="display:flex; gap:7px;">
-        <input id="adminPassInput" type="password" placeholder="סיסמת אדמין" dir="rtl"
-          style="flex:1; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:8px 12px; color:white; font-size:12px; font-family:'Rubik',sans-serif; outline:none;"
-          onkeydown="if(event.key==='Enter') loginAdmin()">
-        <button onclick="loginAdmin()"
-          style="padding:8px 12px; border:none; border-radius:8px; background:rgba(214,76,120,0.15); border:1px solid rgba(214,76,120,0.2); color:white; font-family:'Rubik',sans-serif; font-size:12px; font-weight:600; cursor:pointer;">
-          כניסה
-        </button>
-      </div>
-      <p id="adminErr" style="font-size:10px; color:#fc8585; margin-top:5px; min-height:12px; text-align:center;"></p>
-    </div>
+  <div class="contact-body">
+    <p style="font-size:13px; color:var(--text-dim); margin-bottom:15px; line-height:1.5;">שלחי לי הודעה ואחזור אלייך למייל בהקדם ✨</p>
+    <form id="floatingContactForm" novalidate style="display:flex; flex-direction:column; gap:10px;">
+      <input type="hidden" name="_subject" value="הודעה חדשה מהאתר — Swift Studio">
+      <input type="hidden" name="source" value="floating-contact">
+      <input class="idea-input" type="text" name="name" placeholder="השם שלך" required>
+      <input class="idea-input" type="email" name="email" placeholder="המייל שלך" required>
+      <textarea class="idea-textarea" name="message" placeholder="ההודעה שלך..." required style="min-height:80px; margin-bottom:0;"></textarea>
+      <button class="idea-submit-btn" type="submit" style="padding:12px;">✦ שליחה</button>
+    </form>
+    <p id="floatingContactMsg" style="font-size:12px; margin-top:10px; font-weight:600; text-align:center; min-height:16px;"></p>
   </div>
 </div>
 
-
-<!-- ════════════════════════════════════════════════
-     ✦ JAVASCRIPT
-════════════════════════════════════════════════ -->
 <script>
 /* ─────────────────────────────────────────────────────────────────
    STORAGE KEYS
@@ -1362,7 +1165,6 @@ async function doLogin() {
 
   const hash = await sha256(val);
 
-  // Compare against stored hash — password itself never appears in code
   if (hash === ACCESS_HASH) {
     localStorage.setItem(KEYS.unlocked, 'true');
     unlockPortal();
@@ -1378,7 +1180,6 @@ function unlockPortal() {
   document.body.className = 'unlocked';
   const overlay = document.getElementById('loginOverlay');
   if (overlay) overlay.style.display = 'none';
-  // Trigger newsletter popup logic once the portal is visible
   initNlPopup();
 }
 
@@ -1400,46 +1201,25 @@ function lockPortalForcefully() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function copyEmailToClipboard() {
-  const email   = 'SWIFT84529@GMAIL.COM';
-  const btnText = document.getElementById('copyBtnText');
-  navigator.clipboard.writeText(email).then(() => {
-    if (btnText) {
-      btnText.textContent = 'הועתק! ✓';
-      btnText.style.color = '#34d399';
-      setTimeout(() => { btnText.textContent = email; btnText.style.color = ''; }, 2000);
-    }
-  }).catch(() => {});
-}
-
 
 /* ─────────────────────────────────────────────────────────────────
    📬  SMART NEWSLETTER POPUP
-   Logic:
-     1. If already subscribed → never show.
-     2. If shown in the last 7 days → skip.
-     3. Otherwise → show after a 3.5s delay.
 ───────────────────────────────────────────────────────────────── */
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 
 function initNlPopup() {
-  // Rule 1: already subscribed → done forever
   if (localStorage.getItem(KEYS.subscribed) === 'true') return;
 
-  // Rule 2: shown recently
   const lastShown = parseInt(localStorage.getItem(KEYS.popupShown) || '0', 10);
   if (lastShown && (Date.now() - lastShown) < ONE_WEEK_MS) return;
 
-  // Rule 3: show after delay
   setTimeout(() => {
     const popup = document.getElementById('nlPopup');
     if (popup) {
       popup.classList.add('visible');
-      // Record the timestamp so it won't show again for 7 days
       localStorage.setItem(KEYS.popupShown, Date.now().toString());
-      // Trap focus inside popup
-      document.getElementById('nlEmailInput')?.focus();
+      document.getElementById('nlNameInput')?.focus();
     }
   }, 3500);
 }
@@ -1448,38 +1228,31 @@ function closeNlPopup() {
   document.getElementById('nlPopup')?.classList.remove('visible');
 }
 
-/**
- * "No thanks" — user explicitly dismissed: snooze for 7 days
- * (same as clicking X; the next scheduled run of initNlPopup will
- * re-check the 7-day window).
- */
 function closeNlPopupForever() {
   localStorage.setItem(KEYS.popupShown, Date.now().toString());
   closeNlPopup();
 }
 
-/**
- * Marks the user as subscribed so the popup never appears again.
- * Called after every successful subscription across all forms.
- */
 function markSubscribed() {
   localStorage.setItem(KEYS.subscribed, 'true');
   closeNlPopup();
 }
 
-// Close popup on overlay click (outside the card)
 document.getElementById('nlPopup')?.addEventListener('click', function(e) {
   if (e.target === this) closeNlPopup();
 });
 
-// Close popup on Escape
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeNlPopup();
 });
 
-// Popup form submit
 document.getElementById('nlPopupForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
+  if (!this.checkValidity()) {
+    this.reportValidity();
+    return;
+  }
+  
   const email = document.getElementById('nlEmailInput').value.trim();
   const msg   = document.getElementById('nlPopupMsg');
   const btn   = document.getElementById('nlSubmitBtn');
@@ -1491,8 +1264,7 @@ document.getElementById('nlPopupForm')?.addEventListener('submit', async functio
   msg.textContent = '';
 
   try {
-    const fd = new FormData();
-    fd.append('email', email);
+    const fd = new FormData(this);
     fd.append('_subject', 'הרשמה לרשימת תפוצה — Swift Studio (popup)');
     fd.append('source', 'popup');
 
@@ -1505,7 +1277,7 @@ document.getElementById('nlPopupForm')?.addEventListener('submit', async functio
     if (resp.ok) {
       msg.style.color = '#34d399';
       msg.textContent = '🎉 נרשמת בהצלחה! נתראה בתיבת הדואר ✨';
-      markSubscribed(); // popup will never show again for this user
+      markSubscribed();
       setTimeout(() => closeNlPopup(), 2800);
     } else {
       throw new Error('server');
@@ -1520,206 +1292,73 @@ document.getElementById('nlPopupForm')?.addEventListener('submit', async functio
 
 
 /* ─────────────────────────────────────────────────────────────────
-   📢  FLOATING UPDATES PANEL
+   💬  FLOATING CONTACT PANEL
 ───────────────────────────────────────────────────────────────── */
+let contactOpen = false;
 
-let updatesOpen   = false;
-let updatesLoaded = false;
+function toggleContactPanel() {
+  contactOpen = !contactOpen;
+  const panel  = document.getElementById('contactPanel');
+  const toggle = document.getElementById('contactToggle');
 
-// Fallback data used when the backend is unavailable
-// (e.g. running as a static HTML file without a server).
-const FALLBACK_UPDATES = [
-  { id:5, emoji:'🔬', title:'שיפור תמונות AI — גרסה 2.0',    body:'שדרגנו את מנוע ה-AI. הדיוק עלה ב-40% והמהירות הוכפלה.',           date:'לפני 3 ימים',   isNew:true  },
-  { id:4, emoji:'🎨', title:'כלי הצבעים — הרמוניה אוטומטית', body:'נוסף מצב הרמוניית צבעים חכם. פלטות מושלמות בלחיצה אחת.',          date:'לפני שבוע',    isNew:true  },
-  { id:3, emoji:'💎', title:'חתימת מים — תמיכה ב-SVG',        body:'עכשיו ניתן להעלות לוגו SVG לחתימה חדה ומוגנת לחלוטין.',           date:'לפני שבועיים', isNew:false },
-  { id:2, emoji:'⚡', title:'ממיר קבצים — CMYK מהיר פי 3',    body:'אלגוריתם ההמרה שודרג. המרה ב-3 שניות בלבד.',                      date:'לפני חודש',    isNew:false },
-  { id:1, emoji:'✨', title:'Swift Studio נפתח!',              body:'ברוכות הבאות! 7 כלים מקצועיים, בדפדפן, ללא הורדה, ללא התקנה.', date:'ינואר 2026',   isNew:false },
-];
+  toggle.setAttribute('aria-expanded', contactOpen ? 'true' : 'false');
+  panel.setAttribute('aria-hidden',    contactOpen ? 'false' : 'true');
 
-function toggleUpdatesPanel() {
-  updatesOpen = !updatesOpen;
-  const panel  = document.getElementById('updatesPanel');
-  const toggle = document.getElementById('updatesToggle');
-
-  toggle.setAttribute('aria-expanded', updatesOpen ? 'true' : 'false');
-  panel.setAttribute('aria-hidden',    updatesOpen ? 'false' : 'true');
-
-  if (updatesOpen) {
+  if (contactOpen) {
     panel.classList.add('open');
-    toggle.classList.add('active');
-    // Hide badge and pulse ring when opened
-    document.getElementById('updatesBadge')?.classList.add('hidden');
-    toggle.classList.remove('has-new');
-
-    if (!updatesLoaded) loadUpdates();
   } else {
     panel.classList.remove('open');
-    toggle.classList.remove('active');
   }
 }
 
-async function loadUpdates() {
-  // Always render (chat messages + fallback updates)
-  renderAllUpdates();
-  updatesLoaded = true;
-}
-
-function renderUpdates(updates) {
-  const container = document.getElementById('updatesMessages');
-  if (!container) return;
-
-  container.innerHTML = updates.map((u, i) => `
-    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
-      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
-      <div class="update-msg-bubble">
-        <div class="update-msg-top">
-          <span class="update-msg-title">${escHtml(u.title)}</span>
-          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
-        </div>
-        <p class="update-msg-body">${escHtml(u.body)}</p>
-        <span class="update-msg-date">${escHtml(u.date)}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   💬  CHAT / MESSAGES BOARD
-   – Messages stored in localStorage (visible to same browser)
-   – Each message sent to Formspree so admin gets email notification
-   – Admin panel unlocked with SwiftAdmin2026
-───────────────────────────────────────────────────────────────── */
-
-/* ─────────────────────────────────────────────────────────────────
-   💬  ADMIN MESSAGES — only admin can post, everyone can read
-───────────────────────────────────────────────────────────────── */
-
-const CHAT_KEY = 'ss_chat_messages_v1';
-let isAdmin = false;
-
-function loadChatMessages() {
-  try { return JSON.parse(localStorage.getItem(CHAT_KEY) || '[]'); }
-  catch { return []; }
-}
-function saveChatMessages(msgs) {
-  localStorage.setItem(CHAT_KEY, JSON.stringify(msgs));
-}
-
-function timeNow() {
-  const d = new Date();
-  return d.toLocaleDateString('he-IL', { day:'2-digit', month:'2-digit' })
-       + ' ' + d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
-}
-
-/* ── admin: post a new message ── */
-function sendAdminMessage() {
-  const input = document.getElementById('adminMsgText');
-  const text  = (input.value || '').trim();
-  if (!text) return;
-  const msgs = loadChatMessages();
-  msgs.unshift({ text, time: timeNow() }); // newest first
-  saveChatMessages(msgs);
-  input.value = '';
-  renderAllUpdates();
-}
-
-/* ── admin: clear all messages ── */
-function clearAllMessages() {
-  if (!confirm('למחוק את כל ההודעות?')) return;
-  localStorage.removeItem(CHAT_KEY);
-  renderAllUpdates();
-}
-
-/* ── admin login ── */
-function toggleAdminLogin() {
-  const box = document.getElementById('adminLoginBox');
-  box.style.display = box.style.display === 'none' ? 'block' : 'none';
-  if (box.style.display === 'block') {
-    document.getElementById('adminPassInput')?.focus();
+document.getElementById('floatingContactForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!this.checkValidity()) {
+    this.reportValidity();
+    return;
   }
-}
+  const msg = document.getElementById('floatingContactMsg');
+  const btn = this.querySelector('button[type="submit"]');
 
-async function loginAdmin() {
-  const val   = (document.getElementById('adminPassInput').value || '').trim();
-  const errEl = document.getElementById('adminErr');
-  const hash  = await sha256(val);
-  const correct = await sha256('SwiftAdmin2026');
-  if (hash === correct) {
-    isAdmin = true;
-    document.getElementById('adminWriteArea').style.display = 'block';
-    document.getElementById('adminLoginBox').style.display  = 'none';
-    document.getElementById('adminToggle').style.display    = 'none';
-    renderAllUpdates();
-    document.getElementById('adminMsgText')?.focus();
-  } else {
-    errEl.textContent = '✗ סיסמה שגויה';
-    setTimeout(() => { errEl.textContent = ''; }, 2000);
+  btn.disabled = true;
+  btn.textContent = 'שולחת...';
+  msg.textContent = '';
+
+  try {
+    const resp = await fetch('https://formspree.io/f/xbdelkvl', {
+      method:  'POST',
+      body:    new FormData(this),
+      headers: { 'Accept': 'application/json' },
+    });
+
+    if (resp.ok) {
+      msg.style.color = '#34d399';
+      msg.textContent = 'ההודעה נשלחה בהצלחה! ✨';
+      this.reset();
+      setTimeout(() => { toggleContactPanel(); msg.textContent = ''; }, 3000);
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
+    msg.style.color = '#fc8585';
+    msg.textContent = '⚠ שגיאה — נסי שוב עוד רגע';
+    setTimeout(() => { msg.textContent = ''; }, 4000);
   }
-}
-
-/* ── render: admin messages + fallback updates together ── */
-function renderAllUpdates() {
-  const container = document.getElementById('updatesMessages');
-  if (!container) return;
-
-  const chatMsgs = loadChatMessages();
-
-  // Build chat message HTML (admin posts, shown as chat bubbles)
-  const chatHtml = chatMsgs.map((m, i) => `
-    <div class="update-msg" role="article">
-      <div class="update-msg-icon" aria-hidden="true">⭐</div>
-      <div class="update-msg-bubble">
-        <div class="update-msg-top">
-          <span class="update-msg-title">Swift Studio</span>
-          ${isAdmin ? `<span onclick="deleteChatMsg(${i})" style="font-size:10px;color:rgba(255,100,100,0.45);cursor:pointer;margin-right:auto;">✕</span>` : ''}
-        </div>
-        <p class="update-msg-body">${escHtml(m.text)}</p>
-        <span class="update-msg-date">${escHtml(m.time)}</span>
-      </div>
-    </div>
-  `).join('');
-
-  // Fallback updates (the original static ones)
-  const updatesHtml = FALLBACK_UPDATES.map((u, i) => `
-    <div class="update-msg" style="animation-delay:${i * 80}ms" role="article">
-      <div class="update-msg-icon" aria-hidden="true">${u.emoji}</div>
-      <div class="update-msg-bubble">
-        <div class="update-msg-top">
-          <span class="update-msg-title">${escHtml(u.title)}</span>
-          ${u.isNew ? '<span class="update-new-tag" aria-label="עדכון חדש">חדש</span>' : ''}
-        </div>
-        <p class="update-msg-body">${escHtml(u.body)}</p>
-        <span class="update-msg-date">${escHtml(u.date)}</span>
-      </div>
-    </div>
-  `).join('');
-
-  container.innerHTML = chatHtml + updatesHtml;
-}
-
-function deleteChatMsg(index) {
-  const msgs = loadChatMessages();
-  msgs.splice(index, 1);
-  saveChatMessages(msgs);
-  renderAllUpdates();
-}
-
-
-/** Minimal HTML escaping to prevent XSS in rendered update text */
-function escHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
-}
+  btn.disabled = false;
+  btn.textContent = '✦ שליחה';
+});
 
 
 /* ─────────────────────────────────────────────────────────────────
-   📧  NEWSLETTER FORMS — submit to Formspree + mark subscribed
+   📧  NEWSLETTER FORMS & PRICE INQUIRY FORM
 ───────────────────────────────────────────────────────────────── */
 
 async function submitToFormspree(formEl, msgEl, btnEl, btnLabel) {
+  if (!formEl.checkValidity()) {
+    formEl.reportValidity();
+    return;
+  }
+
   btnEl.disabled = true;
   btnEl.textContent = 'שולחת...';
   msgEl.textContent = '';
@@ -1733,7 +1372,7 @@ async function submitToFormspree(formEl, msgEl, btnEl, btnLabel) {
       msgEl.style.color = '#34d399';
       msgEl.textContent = '🎉 נהדר! נוספת לרשימה בהצלחה — ניפגש בתיבת הדואר!';
       formEl.reset();
-      markSubscribed(); // ← popup will never reappear
+      markSubscribed(); 
       setTimeout(() => { msgEl.textContent = ''; }, 5000);
     } else {
       throw new Error('server');
@@ -1746,6 +1385,39 @@ async function submitToFormspree(formEl, msgEl, btnEl, btnLabel) {
   btnEl.disabled = false;
   btnEl.textContent = btnLabel;
 }
+
+// טופס בירור מחיר השקה אוטומטי
+document.getElementById('priceInquiryForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const msg = document.getElementById('priceFormMsg');
+  const btn = document.getElementById('priceSubmitBtn');
+  
+  btn.disabled = true; 
+  btn.textContent = 'שולחת...';
+  
+  try {
+    const resp = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' },
+    });
+    
+    if (resp.ok) {
+      msg.style.color = '#34d399';
+      msg.textContent = '🌟 הבקשה נשלחה! אחזור אליך בהקדם 💫';
+      this.reset();
+    } else {
+      throw new Error('server');
+    }
+  } catch (_) {
+    msg.style.color = '#fc8585';
+    msg.textContent = '⚠ תקלה בשליחה, נסי שוב בעוד רגע';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'שלחי ונחזור אליך בהקדם עם פרטי המחיר ✦';
+    setTimeout(() => { msg.textContent = ''; }, 5000);
+  }
+});
 
 // רשימת תפוצה פנימית (בתוך הפורטל)
 document.getElementById('joinForm')?.addEventListener('submit', function(e) {
